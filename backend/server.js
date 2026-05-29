@@ -30,7 +30,7 @@ const pool = new Pool({
     ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
 });
 
-// ========== CRIAÇÃO DAS TABELAS (incluindo "session") ==========
+// ========== CRIAÇÃO DAS TABELAS ==========
 const createTables = async () => {
     const queries = [
         `CREATE TABLE IF NOT EXISTS clientes (
@@ -95,7 +95,6 @@ const createTables = async () => {
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )`,
-        // Tabela de sessões (obrigatória para connect-pg-simple)
         `CREATE TABLE IF NOT EXISTS "session" (
             "sid" varchar NOT NULL COLLATE "default" PRIMARY KEY,
             "sess" json NOT NULL,
@@ -108,14 +107,13 @@ const createTables = async () => {
     console.log('✅ Tabelas verificadas/criadas');
 };
 
-// Executar criação das tabelas e iniciar sessão depois que o pool estiver pronto
 (async () => {
     await createTables();
 })();
 
 // ========== SESSÃO (armazenada no PostgreSQL) ==========
 app.use(session({
-    store: new PgSession({ pool, tableName: 'session', createTableIfMissing: false }), // tabela já foi criada manualmente
+    store: new PgSession({ pool, tableName: 'session', createTableIfMissing: false }),
     secret: process.env.SESSION_SECRET || 'otica-valentim-secret-key-2024',
     resave: false,
     saveUninitialized: false,
@@ -284,7 +282,7 @@ app.delete('/api/admin/produtos/:id', async (req, res) => {
     }
 });
 
-// ===== MARCAS =====
+// ===== MARCAS (públicas) =====
 app.get('/api/marcas', async (req, res) => {
     try {
         const { rows } = await pool.query(
@@ -305,6 +303,24 @@ app.get('/api/marcas/:id', async (req, res) => {
         const { rows } = await pool.query('SELECT * FROM marcas WHERE id = $1', [req.params.id]);
         res.json(rows[0] || null);
     } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// ===== ADMIN MARCAS (listagem protegida) =====
+app.get('/api/admin/marcas', async (req, res) => {
+    if (!req.session.isAdmin) return res.status(401).json({ error: 'Não autorizado' });
+    try {
+        const { rows } = await pool.query(
+            `SELECT m.*, COUNT(p.id) as total_produtos
+             FROM marcas m
+             LEFT JOIN produtos p ON m.id = p.marca_id
+             GROUP BY m.id
+             ORDER BY m.destaque DESC, m.nome ASC`
+        );
+        res.json(rows);
+    } catch (err) {
+        console.error(err);
         res.status(500).json({ error: err.message });
     }
 });
@@ -733,7 +749,7 @@ app.get('/admin/:page.html', (req, res) => {
 app.listen(PORT, () => {
     console.log(`
     ═══════════════════════════════════════════════════════════
-    🚀 SERVIDOR ÓTICA VALENTIM - RODANDO NO RENDER!
+    🚀 SERVIDOR ÓTICA VALENTIM - RODANDO!
     ═══════════════════════════════════════════════════════════
     📍 URL: http://localhost:${PORT}
     📁 Frontend: ${FRONTEND_PATH}
