@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre Nós | òtica Valentim</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- CSS Principal -->
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <style>
+        .about-hero {
+            background: linear-gradient(135deg, var(--kessy-primary), var(--kessy-primary-dark));
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+        .about-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        .about-content {
+            padding: 60px 0;
+        }
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        .about-text h3 {
+            color: var(--kessy-primary);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        .about-text p {
+            margin-bottom: 20px;
+            line-height: 1.8;
+            color: var(--kessy-text);
+        }
+        .about-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: var(--kessy-shadow-lg);
+        }
+        .mission-vision {
+            background: var(--kessy-bg);
+            padding: 60px 0;
+            margin: 40px 0;
+        }
+        .mission-vision-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            text-align: center;
+        }
+        .mv-card {
+            background: var(--kessy-white);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: var(--kessy-shadow);
+        }
+        .mv-card i {
+            font-size: 2.5rem;
+            color: var(--kessy-primary);
+            margin-bottom: 20px;
+        }
+        .mv-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--kessy-text);
+        }
+        .values-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+        .value-item {
+            text-align: center;
+            padding: 20px;
+        }
+        .value-item i {
+            font-size: 2rem;
+            color: var(--kessy-primary);
+            margin-bottom: 15px;
+        }
+        .timeline {
+            margin-top: 60px;
+        }
+        .timeline-item {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .timeline-year {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--kessy-primary);
+            min-width: 80px;
+        }
+        @media (max-width: 768px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+            .mission-vision-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Top Bar e Header (mesmo das outras páginas) -->
+<div class="top-bar-kessy">
+    <div class="container">
+        <div class="top-bar-links">
+            <a href="/atendimento.html"><i class="fas fa-headset"></i> Atendimento</a>
+            <a href="/sobre.html"><i class="fas fa-info-circle"></i> Sobre a òtica Valentim</a>
+        </div>
+        <div class="top-bar-icons">
+           
+        </div>
+    </div>
+</div>
+
+<header class="header-kessy">
+    <div class="container">
+        <div class="logo-kessy">
+            <a href="/index.html">
+                <img src="/img/logo/logo.jpg" alt="òtica Valentim" onerror="this.src='https://placehold.co/150x50/4E342E/white?text=Ótica+Macaé'">
+            </a>
+        </div>
+        <nav class="nav-kessy" id="mainNavKessy">
+            <ul class="menu-principal">
+                <li class="menu-item-has-children"><a href="/produtos.html?categoria=grau">👓 Óculos de Grau</a>
+                    <div class="megamenu-kessy"><div class="megamenu-container"><div class="megamenu-coluna"><h4>Por Formato</h4><ul><li><a href="#">Redondo</a></li><li><a href="#">Quadrado</a></li></ul></div></div></div>
+                </li>
+                <li class="menu-item-has-children"><a href="/produtos.html?categoria=sol">Óculos de Sol</a></li>
+                <li><a href="/produtos.html?categoria=lentes">Lentes de Contato</a></li>
+                <li><a href="/protecao.html">Óculos de Proteção</a></li>
+                <li><a href="/chat.html">Chat Online</a></li>
+                <li><a href="/contato.html">Contato</a></li>
+            </ul>
+        </nav>
+        <div class="whatsapp-kessy">
+            <a href="https://wa.me/5522999416737" target="_blank"><i class="fab fa-whatsapp"></i> <span>Precisa de Ajuda?</span></a>
+        </div>
+        <div class="hamburger-kessy" id="hamburgerKessy"><span></span><span></span><span></span></div>
+    </div>
+</header>
+<div class="nav-overlay-kessy" id="navOverlayKessy"></div>
+
+<a href="https://wa.me/5522999416737" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+<div class="benefits-bar">
+    <div class="container">
+        <i class="fas fa-truck"></i> Frete grátis acima de R$ 299,00
+        <span>|</span>
+        <i class="fas fa-credit-card"></i> Parcele em até 10x sem juros
+        <span>|</span>
+        <i class="fas fa-shield-alt"></i> Produtos 100% originais
+    </div>
+</div>
+
+<main>
+    <section class="about-hero">
+        <div class="container">
+            <h1>Sobre a òtica Valentim</h1>
+            <p>Mais de 30 anos cuidando da sua visão com excelência e tradição</p>
+        </div>
+    </section>
+
+    <div class="about-content">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-text">
+                    <h3>Uma história de confiança e qualidade</h3>
+                    <p>Fundada em <strong>1992</strong>, a <strong>òtica Valentim</strong> nasceu do sonho de oferecer à população de Macaé e região um atendimento oftalmológico de excelência, aliado a produtos de alta qualidade. Ao longo de mais de três décadas, nos consolidamos como uma das óticas mais tradicionais e respeitadas da cidade.</p>
+                    <p>Nossa trajetória é marcada pelo compromisso com a <strong>saúde ocular</strong> e a <strong>satisfação dos clientes</strong>. Investimos constantemente em tecnologia de ponta para aferição de graus e montagem de lentes, além de oferecer um portfólio diversificado com as melhores marcas do mercado.</p>
+                    <p>Localizada estrategicamente no <strong>centro de Macaé</strong>, também atendemos na região do <strong>Parque Aeroporto</strong>, levando nossos serviços a diferentes pontos da cidade. Nossa equipe é formada por profissionais altamente capacitados e apaixonados pelo que fazem.</p>
+                </div>
+                <div class="about-image">
+                    <img src="img/Fotos/crianças2.jpg" alt="Loja òtica Valentim" onerror="this.src='https://placehold.co/600x400/4E342E/white?text=Ótica+Macaé'">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="mission-vision">
+        <div class="container">
+            <div class="mission-vision-grid">
+                <div class="mv-card">
+                    <i class="fas fa-bullseye"></i>
+                    <h4>Missão</h4>
+                    <p>Proporcionar saúde ocular e bem-estar através de produtos de qualidade, atendimento humanizado e soluções visuais que transformam vidas.</p>
+                </div>
+                <div class="mv-card">
+                    <i class="fas fa-eye"></i>
+                    <h4>Visão</h4>
+                    <p>Ser referência em óptica no Norte Fluminense, reconhecida pela excelência no atendimento, inovação e compromisso com a saúde visual.</p>
+                </div>
+                <div class="mv-card">
+                    <i class="fas fa-heart"></i>
+                    <h4>Valores</h4>
+                    <p>Ética, transparência, respeito ao cliente, qualidade inegociável e paixão pelo que fazemos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <h2 class="section-title">Nossos Diferenciais</h2>
+        <div class="values-list">
+            <div class="value-item"><i class="fas fa-clock"></i><h4>Tradição</h4><p>+30 anos no mercado</p></div>
+            <div class="value-item"><i class="fas fa-map-marker-alt"></i><h4>Localização</h4><p>Centro e Parque Aeroporto</p></div>
+            <div class="value-item"><i class="fas fa-tachometer-alt"></i><h4>Montagem Rápida</h4><p>Lentes em até 24h</p></div>
+            <div class="value-item"><i class="fas fa-trophy"></i><h4>Grife</h4><p>Marcas exclusivas</p></div>
+            <div class="value-item"><i class="fas fa-users"></i><h4>Atendimento</h4><p>Humanizado e especializado</p></div>
+            <div class="value-item"><i class="fas fa-certificate"></i><h4>Garantia</h4><p>Produtos originais</p></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="timeline">
+            <h2 class="section-title">Nossa Trajetória</h2>
+            <div class="timeline-item"><div class="timeline-year">1992</div><div class="timeline-text"><strong>Fundação</strong> - A òtica Valentim abre suas portas no Centro da cidade.</div></div>
+            <div class="timeline-item"><div class="timeline-year">2005</div><div class="timeline-text"><strong>Expansão</strong> - Inauguração da segunda unidade no Parque Aeroporto.</div></div>
+            <div class="timeline-item"><div class="timeline-year">2015</div><div class="timeline-text"><strong>Modernização</strong> - Investimento em tecnologia de ponta para lentes.</div></div>
+            <div class="timeline-item"><div class="timeline-year">2026</div><div class="timeline-text"><strong>Hoje</strong> - Mais de 30 anos de história e milhares de clientes satisfeitos.</div></div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div><h4>òtica Valentim</h4><p>Rua R. Teixeira de Gouvéa, 641 - Centro, Macaé/RJ</p><p>(22) 2762-3007</p></div>
+            <div><h4>Links</h4><ul><li><a href="/sobre.html">Sobre</a></li><li><a href="/atendimento.html">Atendimento</a></li><li><a href="/contato.html">Contato</a></li></ul></div>
+            <div><h4>Pagamento</h4><i class="fab fa-cc-visa"></i> <i class="fab fa-cc-mastercard"></i> <i class="fab fa-paypal"></i> <i class="fas fa-qrcode"></i><p>Até 10x sem juros</p></div>
+        </div>
+        <div class="copyright"><p>&copy; <span id="currentYear"></span> òtica Valentim</p></div>
+    </div>
+</footer>
+
+<script>
+// Menu script (mesmo das outras páginas)
+(function() {
+    const hamburger = document.getElementById('hamburgerKessy');
+    const nav = document.getElementById('mainNavKessy');
+    const overlay = document.getElementById('navOverlayKessy');
+    if (!hamburger) return;
+    function toggleMenu() { hamburger.classList.toggle('active'); nav.classList.toggle('active'); overlay.classList.toggle('active'); document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : ''; }
+    function closeMenu() { hamburger.classList.remove('active'); nav.classList.remove('active'); overlay.classList.remove('active'); document.body.style.overflow = ''; }
+    hamburger.addEventListener('click', toggleMenu);
+    overlay.addEventListener('click', closeMenu);
+})();
+document.getElementById('currentYear').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

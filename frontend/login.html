@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Ótica Valentim</title>
+    
+    <link rel="icon" type="image/x-icon" href="/img/favicon/favicon.ico">
+    <link rel="shortcut icon" href="/img/favicon/favicon.ico">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <style>
+        .login-container {
+            max-width: 450px;
+            margin: 80px auto;
+            background: white;
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.1);
+        }
+        .login-container h2 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: var(--kessy-text);
+        }
+        .login-container p {
+            text-align: center;
+            color: var(--kessy-text-light);
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--kessy-text);
+        }
+        .form-group input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid var(--kessy-border);
+            border-radius: 50px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: 0.2s;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--kessy-primary-light);
+            box-shadow: 0 0 0 3px rgba(141,110,99,0.2);
+        }
+        .btn-login {
+            width: 100%;
+            background: var(--kessy-primary);
+            color: white;
+            padding: 14px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 10px;
+        }
+        .btn-login:hover {
+            background: var(--kessy-primary-dark);
+            transform: translateY(-2px);
+        }
+        .register-link {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid var(--kessy-border);
+        }
+        .register-link a {
+            color: var(--kessy-primary-light);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+        .admin-note {
+            background: #f5f2ef;
+            padding: 15px;
+            border-radius: 20px;
+            margin-top: 20px;
+            font-size: 0.8rem;
+            text-align: center;
+            color: #666;
+        }
+        .admin-note a {
+            color: var(--kessy-primary);
+            text-decoration: none;
+        }
+        .message {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 0.85rem;
+            display: none;
+        }
+        .message.error {
+            background: #ffe6e6;
+            color: #d63031;
+            display: block;
+        }
+        .message.success {
+            background: #e0f2e9;
+            color: #2e7d32;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ========== TOP BAR ========== -->
+<div class="top-bar-kessy">
+    <div class="container">
+        <div class="top-bar-links">
+            <a href="/atendimento.html"><i class="fas fa-headset"></i> Atendimento</a>
+            <a href="/sobre.html"><i class="fas fa-info-circle"></i> Sobre a Ótica Valentim</a>
+        </div>
+        <div class="top-bar-icons">
+     
+            
+        </div>
+    </div>
+</div>
+
+<!-- ========== HEADER ========== -->
+<header class="header-kessy">
+    <div class="container">
+        <div class="logo-kessy">
+            <a href="/index.html">
+                <img src="/img/logo/logo.jpg" alt="Ótica Valentim" onerror="this.src='https://placehold.co/150x50/4E342E/white?text=Ótica+Valentim'">
+            </a>
+        </div>
+        <nav class="nav-kessy" id="mainNavKessy">
+            <ul class="menu-principal">
+                <!-- Menu idêntico ao index (omitido para brevidade, mas igual aos outros) -->
+                <li class="menu-item-has-children"><a href="/produtos.html?categoria=grau">👓 Óculos de Grau</a></li>
+                <li class="menu-item-has-children"><a href="/produtos.html?categoria=sol">🕶️ Óculos de Sol</a></li>
+                <li><a href="/produtos.html?categoria=lentes">👁️ Lentes de Contato</a></li>
+                <li><a href="/protecao.html">🛡️ Óculos de Proteção</a></li>
+                <li><a href="/chat.html">💬 Chat Online</a></li>
+                <li><a href="/contato.html">📞 Contato</a></li>
+            </ul>
+        </nav>
+        <div class="whatsapp-kessy">
+            <a href="https://wa.me/5522999416737" target="_blank"><i class="fab fa-whatsapp"></i> <span>Precisa de Ajuda?</span></a>
+        </div>
+        <div class="hamburger-kessy" id="hamburgerKessy"><span></span><span></span><span></span></div>
+    </div>
+</header>
+
+<div class="nav-overlay-kessy" id="navOverlayKessy"></div>
+<a href="https://wa.me/5522999416737" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+<div class="benefits-bar">
+    <div class="container">
+        <i class="fas fa-truck"></i> Frete grátis acima de R$ 299,00
+        <span>|</span>
+        <i class="fas fa-credit-card"></i> Parcele em até 10x sem juros
+        <span>|</span>
+        <i class="fas fa-shield-alt"></i> Produtos 100% originais
+    </div>
+</div>
+
+<main>
+    <div class="container">
+        <div class="login-container">
+            <h2>Acessar minha conta</h2>
+            <p>Informe seus dados para entrar</p>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label><i class="fas fa-envelope"></i> E-mail</label>
+                    <input type="email" id="email" placeholder="seu@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-lock"></i> Senha</label>
+                    <input type="password" id="password" placeholder="••••••" required>
+                </div>
+                <button type="submit" class="btn-login">Entrar</button>
+            </form>
+            <div id="message" class="message"></div>
+
+            <div class="register-link">
+                Ainda não tem cadastro? <a href="/cadastro.html">Criar conta gratuita</a>
+            </div>
+            <div class="admin-note">
+                <i class="fas fa-shield-alt"></i> Área do administrador? 
+                <a href="/admin/login.html">Clique aqui</a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div><h4>Ótica Valentim</h4><p>Av. Nossa Sra. da Glória, 185<br>Macaé - RJ</p><p>(22) 2762-3007</p></div>
+            <div><h4>Links</h4><ul><li><a href="/index.html">Início</a></li><li><a href="/produtos.html">Produtos</a></li><li><a href="/cadastro.html">Cadastro</a></li><li><a href="/contato.html">Contato</a></li></ul></div>
+            <div><h4>Pagamento</h4><i class="fab fa-cc-visa"></i> <i class="fab fa-cc-mastercard"></i> <i class="fab fa-paypal"></i> <i class="fas fa-qrcode"></i><p>Até 10x sem juros</p></div>
+        </div>
+        <div class="copyright"><p>&copy; <span id="currentYear"></span> Ótica Valentim</p></div>
+    </div>
+</footer>
+
+<script>
+    // Menu mobile (cópia do index)
+    (function() {
+        const hamburger = document.getElementById('hamburgerKessy');
+        const nav = document.getElementById('mainNavKessy');
+        const overlay = document.getElementById('navOverlayKessy');
+        if (!hamburger) return;
+        function toggleMenu() {
+            hamburger.classList.toggle('active');
+            nav.classList.toggle('active');
+            overlay.classList.toggle('active');
+            document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
+        }
+        function closeMenu() {
+            hamburger.classList.remove('active');
+            nav.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+            document.querySelectorAll('.menu-item-has-children.active').forEach(el => el.classList.remove('active'));
+        }
+        hamburger.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', closeMenu);
+        window.addEventListener('resize', () => { if (window.innerWidth > 992) closeMenu(); });
+    })();
+
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    // Simulação de login (pois não há backend de clientes ainda)
+    const form = document.getElementById('loginForm');
+    const msgDiv = document.getElementById('message');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value;
+
+        // Se for admin, redireciona para o admin (opcional)
+        if (email === 'admin@oticavaletim.com.br' && password === 'admin123') {
+            window.location.href = '/admin/dashboard.html';
+            return;
+        }
+
+        // Para clientes, ainda não há autenticação real.
+        // Simulação: mostra mensagem e redireciona para cadastro após 2 segundos.
+        msgDiv.className = 'message info';
+        msgDiv.style.background = '#e3f2fd';
+        msgDiv.style.color = '#0d47a1';
+        msgDiv.innerHTML = '🔧 Sistema de login em desenvolvimento. Você será redirecionado para criar uma conta.';
+        msgDiv.style.display = 'block';
+
+        setTimeout(() => {
+            window.location.href = '/cadastro.html';
+        }, 2000);
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produtos | òtica Valentim</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- CSS Principal -->
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <style>
+        .filtros-container {
+            background: var(--kessy-white, #ffffff);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: var(--kessy-shadow, 0 2px 8px rgba(0,0,0,0.05));
+        }
+        .filtros-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .filtro-group {
+            flex: 1;
+            min-width: 160px;
+        }
+        .filtro-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: var(--kessy-text, #2c2c2c);
+        }
+        .filtro-group select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 50px;
+            border: 1px solid var(--kessy-border, #ddd);
+            font-family: 'Inter', sans-serif;
+            background: white;
+            cursor: pointer;
+        }
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+        }
+        .product-card {
+            background: var(--kessy-white, #FFFFFF);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .product-img {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            background: #FFFFFF;
+            padding: 20px;
+        }
+        .product-card h3 {
+            font-size: 1rem;
+            margin: 10px 15px;
+            color: var(--kessy-text, #2c2c2c);
+        }
+        .product-price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--kessy-primary, #4E342E);
+            margin: 0 15px;
+        }
+        .product-installment {
+            font-size: 0.7rem;
+            color: var(--kessy-text-light, #6c757d);
+            margin: 0 15px;
+        }
+        .product-pix {
+            font-size: 0.8rem;
+            color: #25D366;
+            margin: 0 15px;
+        }
+        .product-card .btn {
+            display: block;
+            margin: 15px;
+            text-align: center;
+            background: var(--kessy-primary, #4E342E);
+            color: white;
+            padding: 10px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--kessy-text-light, #6c757d);
+        }
+        .badge-categoria {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        .badge-masculino { background: #2196F3; color: white; }
+        .badge-feminino { background: #E91E63; color: white; }
+        .badge-infantil { background: #4CAF50; color: white; }
+        .badge-unissex { background: #9E9E9E; color: white; }
+        .marca-nome {
+            margin: 5px 15px;
+            font-size: 0.8rem;
+            color: var(--kessy-text-light, #6c757d);
+        }
+    </style>
+</head>
+<body>
+
+<!-- ==================== TOP BAR ==================== -->
+<div class="top-bar-kessy">
+    <div class="container">
+        <div class="top-bar-links">
+            <a href="/atendimento.html"><i class="fas fa-headset"></i> Atendimento</a>
+            <a href="/sobre.html"><i class="fas fa-info-circle"></i> Sobre a òtica Valentim</a>
+        </div>
+        <div class="top-bar-icons">
+        
+        </div>
+    </div>
+</div>
+
+<!-- ==================== HEADER PRINCIPAL ==================== -->
+<header class="header-kessy">
+    <div class="container">
+        <div class="logo-kessy">
+            <a href="/index.html">
+                <img src="/img/logo/logo.jpg" alt="òtica Valentim" onerror="this.src='https://placehold.co/150x50/4E342E/white?text=Ótica+Macaé'">
+            </a>
+        </div>
+        <nav class="nav-kessy" id="mainNavKessy">
+            <ul class="menu-principal">
+                <li class="menu-item-has-children">
+                    <a href="#">Óculos de Grau</a>
+                    <div class="megamenu-kessy">
+                        <div class="megamenu-container">
+                            <div class="megamenu-coluna">
+                                <h4>Por Formato</h4>
+                                <ul>
+                                    <li><a href="/produtos.html?formato=redondo">Redondo</a></li>
+                                    <li><a href="/produtos.html?formato=quadrado">Quadrado</a></li>
+                                    <li><a href="/produtos.html?formato=retangular">Retangular</a></li>
+                                    <li><a href="/produtos.html?formato=gatinho">Gatinho</a></li>
+                                    <li><a href="/produtos.html?formato=oval">Oval</a></li>
+                                    <li><a href="/produtos.html?formato=aviador">Aviador</a></li>
+                                    <li><a href="/produtos.html?formato=clubmaster">Clubmaster</a></li>
+                                    <li><a href="/produtos.html?formato=geometrico">Geométrico</a></li>
+                                </ul>
+                            </div>
+                            <div class="megamenu-coluna">
+                                <h4>Por Gênero</h4>
+                                <ul>
+                                    <li><a href="/produtos.html?categoria=grau&sub=masculino">Masculino</a></li>
+                                    <li><a href="/produtos.html?categoria=grau&sub=feminino">Feminino</a></li>
+                                    <li><a href="/produtos.html?categoria=grau&sub=infantil">Infantil</a></li>
+                                </ul>
+                            </div>
+                            <div class="megamenu-coluna">
+                                <h4>Lentes Especiais</h4>
+                                <ul>
+                                    <li><a href="/produtos.html?lente=blue-light">Blue Light</a></li>
+                                    <li><a href="/produtos.html?lente=fotossensivel">Fotossensível</a></li>
+                                    <li><a href="/produtos.html?lente=antirreflexo">Antirreflexo</a></li>
+                                </ul>
+                            </div>
+                            <div class="megamenu-coluna">
+                                <h4>Marcas</h4>
+                                <ul>
+                                    <li><a href="/produtos.html?marca=rayban">Ray-Ban</a></li>
+                                    <li><a href="/produtos.html?marca=oakley">Oakley</a></li>
+                                    <li><a href="/produtos.html?marca=gucci">Gucci</a></li>
+                                    <li><a href="/produtos.html?marca=prada">Prada</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="menu-item-has-children">
+                    <a href="#">Óculos de Sol</a>
+                    <div class="megamenu-kessy">
+                        <div class="megamenu-container">
+                            <div class="megamenu-coluna">
+                                <h4>Por Estilo</h4>
+                                <ul>
+                                    <li><a href="/produtos.html?categoria=sol&sub=masculino">Masculino</a></li>
+                                    <li><a href="/produtos.html?categoria=sol&sub=feminino">Feminino</a></li>
+                                    <li><a href="/produtos.html?categoria=sol&sub=infantil">Infantil</a></li>
+                                </ul>
+                            </div>
+                            <div class="megamenu-coluna">
+                                <h4>Marcas</h4>
+                                <ul>
+                                    <li><a href="/produtos.html?marca=rayban&categoria=sol">Ray-Ban</a></li>
+                                    <li><a href="/produtos.html?marca=oakley&categoria=sol">Oakley</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li><a href="/produtos.html?categoria=lentes">Lentes de Contato</a></li>
+                <li><a href="/protecao.html">Óculos de Proteção</a></li>
+                <li><a href="/chat.html">Chat Online</a></li>
+                <li><a href="/contato.html">Contato</a></li>
+            </ul>
+        </nav>
+        <div class="whatsapp-kessy">
+            <a href="https://wa.me/5522999416737" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-whatsapp"></i> <span>Precisa de Ajuda?</span>
+            </a>
+        </div>
+        <div class="hamburger-kessy" id="hamburgerKessy"><span></span><span></span><span></span></div>
+    </div>
+</header>
+<div class="nav-overlay-kessy" id="navOverlayKessy"></div>
+
+<!-- ==================== WHATSAPP FLUTUANTE ==================== -->
+<a href="https://wa.me/5522999416737" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
+    <i class="fab fa-whatsapp"></i>
+</a>
+
+<!-- ==================== BARRA DE BENEFÍCIOS ==================== -->
+<div class="benefits-bar">
+    <div class="container">
+        <i class="fas fa-truck"></i> Frete grátis acima de R$ 299,00
+        <span>|</span>
+        <i class="fas fa-credit-card"></i> Parcele em até 10x sem juros
+        <span>|</span>
+        <i class="fas fa-shield-alt"></i> Produtos 100% originais
+    </div>
+</div>
+
+<!-- ==================== CONTEÚDO PRINCIPAL ==================== -->
+<main>
+    <div class="container">
+        <h2 class="section-title">Nossos Produtos</h2>
+        
+        <div class="filtros-container">
+            <div class="filtros-row">
+                <div class="filtro-group">
+                    <label><i class="fas fa-tag"></i> Categoria:</label>
+                    <select id="filtroCategoria">
+                        <option value="todos">Todos</option>
+                        <option value="grau">Óculos de Grau</option>
+                        <option value="sol">Óculos de Sol</option>
+                        <option value="lentes">Lentes de Contato</option>
+                    </select>
+                </div>
+                <div class="filtro-group">
+                    <label><i class="fas fa-venus-mars"></i> Público:</label>
+                    <select id="filtroSexo">
+                        <option value="todos">Todos</option>
+                        <option value="masculino">Masculino</option>
+                        <option value="feminino">Feminino</option>
+                        <option value="infantil">Infantil</option>
+                        <option value="unissex">Unissex</option>
+                    </select>
+                </div>
+                <div class="filtro-group">
+                    <label><i class="fas fa-shapes"></i> Formato:</label>
+                    <select id="filtroFormato">
+                        <option value="todos">Todos</option>
+                        <option value="redondo">Redondo</option>
+                        <option value="quadrado">Quadrado</option>
+                        <option value="retangular">Retangular</option>
+                        <option value="gatinho">Gatinho</option>
+                        <option value="oval">Oval</option>
+                        <option value="aviador">Aviador</option>
+                        <option value="clubmaster">Clubmaster</option>
+                        <option value="geometrico">Geométrico</option>
+                    </select>
+                </div>
+                <div class="filtro-group">
+                    <label><i class="fas fa-building"></i> Marca:</label>
+                    <select id="filtroMarca">
+                        <option value="todos">Todas as marcas</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <div class="products-grid" id="lista-produtos">
+            <div class="loading">Carregando produtos...</div>
+        </div>
+    </div>
+</main>
+
+<!-- ==================== FOOTER ==================== -->
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div><h4>🤎 òtica Valentim</h4><p>Rua R. Teixeira de Gouvéa, 641<br>Macaé - RJ</p><p>(22) 2762-3007</p></div>
+            <div><h4>Links</h4><ul><li><a href="/index.html">Início</a></li><li><a href="/produtos.html">Produtos</a></li><li><a href="/cadastro.html">Cadastro</a></li><li><a href="/contato.html">Contato</a></li></ul></div>
+            <div><h4>Pagamento</h4><i class="fab fa-cc-visa"></i> <i class="fab fa-cc-mastercard"></i> <i class="fab fa-paypal"></i> <i class="fas fa-qrcode"></i><p>Até 10x sem juros</p></div>
+        </div>
+        <div class="copyright"><p>&copy; <span id="currentYear"></span> òtica Valentim</p></div>
+    </div>
+</footer>
+
+<script>
+// ========== CAPTURAR PARÂMETROS DA URL (vindos do menu) ==========
+const urlParams = new URLSearchParams(window.location.search);
+const categoriaParam = urlParams.get('categoria');
+const sexoParam = urlParams.get('sub');
+const marcaParam = urlParams.get('marca');
+const formatoParam = urlParams.get('formato');
+const lenteParam = urlParams.get('lente');
+const corParam = urlParams.get('cor');
+
+// ========== FUNÇÕES ==========
+function formatarPreco(preco) {
+    return parseFloat(preco).toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+}
+
+function getBadgeSexo(sexo) {
+    if (sexo === 'masculino') return '<span class="badge-categoria badge-masculino">👨 Masculino</span>';
+    if (sexo === 'feminino') return '<span class="badge-categoria badge-feminino">👩 Feminino</span>';
+    if (sexo === 'infantil') return '<span class="badge-categoria badge-infantil">🧒 Infantil</span>';
+    return '<span class="badge-categoria badge-unissex">🔄 Unissex</span>';
+}
+
+async function carregarMarcasFiltro() {
+    try {
+        const response = await fetch('/api/marcas');
+        const marcas = await response.json();
+        const select = document.getElementById('filtroMarca');
+        select.innerHTML = '<option value="todos">Todas as marcas</option>' + 
+            marcas.map(m => `<option value="${m.id}">${m.nome}</option>`).join('');
+        
+        // Se veio marca da URL, seleciona
+        if (marcaParam) {
+            // Busca o ID da marca pelo nome
+            const marcaEncontrada = marcas.find(m => m.nome.toLowerCase() === marcaParam.toLowerCase());
+            if (marcaEncontrada) {
+                select.value = marcaEncontrada.id;
+            }
+        }
+    } catch (error) {
+        console.error('Erro ao carregar marcas:', error);
+    }
+}
+
+async function carregarProdutos() {
+    const container = document.getElementById('lista-produtos');
+    if (!container) return;
+    container.innerHTML = '<div class="loading">Carregando produtos...</div>';
+    
+    // Pega os valores dos selects (que podem ter sido alterados pelo usuário)
+    const categoriaSelect = document.getElementById('filtroCategoria')?.value || 'todos';
+    const sexoSelect = document.getElementById('filtroSexo')?.value || 'todos';
+    const formatoSelect = document.getElementById('filtroFormato')?.value || 'todos';
+    const marcaSelect = document.getElementById('filtroMarca')?.value || 'todos';
+    
+    // PRIORIDADE: Parâmetros da URL (vindos do menu) têm precedência sobre os selects
+    const categoria = categoriaParam || categoriaSelect;
+    const sexo = sexoParam || sexoSelect;
+    const formato = formatoParam || formatoSelect;
+    const marcaId = marcaSelect; // para marcas, usamos o ID do select
+    
+    let url = '/api/produtos?';
+    
+    if (categoria && categoria !== 'todos') {
+        url += `categoria=${categoria}&`;
+    }
+    
+    if (sexo && sexo !== 'todos') {
+        url += `categoria_sexo=${sexo}&`;
+    }
+    
+    if (formato && formato !== 'todos') {
+        url += `formato=${formato}&`;
+    }
+    
+    if (marcaId && marcaId !== 'todos') {
+        url += `marca_id=${marcaId}&`;
+    }
+    
+    if (marcaParam && !marcaId) {
+        url += `marca_nome=${marcaParam}&`;
+    }
+    
+    if (lenteParam) {
+        url += `lente=${lenteParam}&`;
+    }
+    
+    if (corParam) {
+        url += `cor=${corParam}&`;
+    }
+    
+    console.log('URL da requisição:', url);
+    
+    try {
+        const response = await fetch(url);
+        const produtos = await response.json();
+        
+        console.log('Produtos recebidos:', produtos.length);
+        
+        if (!produtos || produtos.length === 0) {
+            container.innerHTML = '<div class="loading">Nenhum produto encontrado para esta seleção</div>';
+            return;
+        }
+        
+        container.innerHTML = produtos.map(p => {
+            const precoOriginal = parseFloat(p.preco);
+            const precoPix = precoOriginal * 0.95;
+            const parcela = precoOriginal / 10;
+            const formatoExibido = p.formato ? p.formato.charAt(0).toUpperCase() + p.formato.slice(1) : '';
+            
+            return `
+            <div class="product-card">
+                <img src="${p.imagem || 'https://placehold.co/400x260/8D6E63/white?text=Produto'}" class="product-img" onerror="this.src='https://placehold.co/400x260/8D6E63/white?text=Produto'">
+                <div style="margin: 10px 0 0 15px;">
+                    ${getBadgeSexo(p.categoria_sexo)}
+                    ${formatoExibido ? `<span style="background:#9C27B0; color:white; padding:4px 10px; border-radius:50px; font-size:0.7rem; margin-left:5px;">📐 ${formatoExibido}</span>` : ''}
+                </div>
+                <h3>${p.nome}</h3>
+                ${p.marca_nome ? `<div class="marca-nome"><i class="fas fa-building"></i> ${p.marca_nome}</div>` : ''}
+                <div class="product-price">R$ ${formatarPreco(precoOriginal)}</div>
+                <div class="product-installment">10x de R$ ${formatarPreco(parcela)} sem juros</div>
+                <div class="product-pix">PIX: R$ ${formatarPreco(precoPix)} (5% OFF)</div>
+                <a href="https://wa.me/5522999416737?text=Olá! Gostaria de comprar ${p.nome} - R$ ${formatarPreco(precoOriginal)}" class="btn" target="_blank">Comprar via WhatsApp</a>
+            </div>
+        `}).join('');
+    } catch (error) {
+        console.error('Erro ao carregar produtos:', error);
+        container.innerHTML = '<div class="loading">Erro ao carregar produtos</div>';
+    }
+}
+
+// ========== EVENTOS ==========
+document.getElementById('filtroCategoria')?.addEventListener('change', () => {
+    // Ao mudar o select, limpa os parâmetros da URL e carrega com os novos valores
+    window.history.replaceState({}, '', window.location.pathname);
+    carregarProdutos();
+});
+document.getElementById('filtroSexo')?.addEventListener('change', () => {
+    window.history.replaceState({}, '', window.location.pathname);
+    carregarProdutos();
+});
+document.getElementById('filtroFormato')?.addEventListener('change', () => {
+    window.history.replaceState({}, '', window.location.pathname);
+    carregarProdutos();
+});
+document.getElementById('filtroMarca')?.addEventListener('change', () => {
+    window.history.replaceState({}, '', window.location.pathname);
+    carregarProdutos();
+});
+
+// ========== INICIALIZAÇÃO ==========
+async function init() {
+    await carregarMarcasFiltro();
+    
+    // Aplicar filtros da URL nos selects (para exibição)
+    if (categoriaParam && document.getElementById('filtroCategoria')) {
+        document.getElementById('filtroCategoria').value = categoriaParam;
+    }
+    if (sexoParam && document.getElementById('filtroSexo')) {
+        document.getElementById('filtroSexo').value = sexoParam;
+    }
+    if (formatoParam && document.getElementById('filtroFormato')) {
+        document.getElementById('filtroFormato').value = formatoParam;
+    }
+    
+    carregarProdutos();
+}
+init();
+
+// ========== MENU HAMBÚRGUER ==========
+(function() {
+    const hamburger = document.getElementById('hamburgerKessy');
+    const nav = document.getElementById('mainNavKessy');
+    const overlay = document.getElementById('navOverlayKessy');
+    if (!hamburger) return;
+    function toggleMenu() {
+        hamburger.classList.toggle('active');
+        nav.classList.toggle('active');
+        overlay.classList.toggle('active');
+        document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
+    }
+    function closeMenu() {
+        hamburger.classList.remove('active');
+        nav.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+    hamburger.addEventListener('click', toggleMenu);
+    overlay.addEventListener('click', closeMenu);
+})();
+
+document.getElementById('currentYear').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
