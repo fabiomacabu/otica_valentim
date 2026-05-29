@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Chatbot - Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        * { font-family: 'Poppins', sans-serif; }
+        .admin-nav { background: #2c1a15; padding: 15px 0; margin-bottom: 30px; }
+        .admin-nav .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
+        .admin-nav a { color: #f0f0f0; text-decoration: none; margin-left: 20px; padding: 8px 16px; border-radius: 8px; transition: background 0.3s; }
+        .admin-nav a:hover { background: rgba(255,255,255,0.2); }
+        .table-container { background: #fff; border-radius: 24px; padding: 20px; overflow-x: auto; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+        .data-table { width: 100%; border-collapse: collapse; }
+        .data-table th { text-align: left; padding: 15px; background: #3E2723; color: #fff; font-weight: 600; }
+        .data-table td { padding: 15px; border-bottom: 1px solid #e0d6d3; vertical-align: middle; }
+        .btn-editar { background: #f57c00; color: white; border: none; padding: 6px 12px; border-radius: 8px; cursor: pointer; margin-right: 5px; }
+        .btn-excluir { background: #d32f2f; color: white; border: none; padding: 6px 12px; border-radius: 8px; cursor: pointer; }
+        .btn-novo { background: #4E342E; color: white; border: none; padding: 12px 28px; border-radius: 50px; cursor: pointer; font-weight: 600; margin-bottom: 20px; display: inline-flex; align-items: center; gap: 10px; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; align-items: center; justify-content: center; }
+        .modal-content { background: white; max-width: 600px; width: 90%; border-radius: 24px; padding: 30px; max-height: 90vh; overflow-y: auto; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #3E2723; }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px; border: 2px solid #d4cdc9; border-radius: 12px; font-family: inherit; }
+        .keyword-tag { display: inline-block; background: #e0d6d3; padding: 4px 12px; border-radius: 20px; margin: 5px 5px 0 0; font-size: 0.8rem; }
+        .remove-keyword { cursor: pointer; margin-left: 6px; color: #d32f2f; }
+        .add-keyword { margin-top: 10px; display: flex; gap: 10px; }
+        .badge-ativo { background: #4CAF50; color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; display: inline-block; }
+        .badge-inativo { background: #9E9E9E; color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; display: inline-block; }
+        .btn-toggle { background: #2196F3; color: white; border: none; padding: 4px 12px; border-radius: 8px; cursor: pointer; font-size: 0.7rem; margin-top: 5px; }
+    </style>
+</head>
+<body>
+    <div class="admin-nav">
+        <div class="container">
+            <h3 style="color: #fff;">🤖 Gerenciar Chatbot</h3>
+            <div class="nav-links">
+                <a href="/admin/dashboard.html">Dashboard</a>
+                <a href="/admin/produtos-admin.html">Produtos</a>
+                <a href="/admin/chat-admin.html">Chat</a>
+                <a href="/admin/cupons-admin.html">Cupons</a>
+                <a href="/admin/marcas-admin.html">Marcas</a>
+                <a href="/admin/chat-bot-admin.html">Bot</a>
+                <a href="/admin/notificacoes-admin.html">Notificações</a>
+                <a href="#" id="logoutBtn">Sair</a>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+            <h2>Inteligências do Chatbot</h2>
+            <button class="btn-novo" id="btnNovo"><i class="fas fa-plus"></i> Nova Intenção</button>
+        </div>
+        <div class="table-container">
+            <table class="data-table">
+                <thead>
+                    <tr><th>ID</th><th>Palavras-chave</th><th>Resposta</th><th>Ação</th><th>Status</th><th>Ações</th></tr>
+                </thead>
+                <tbody id="listaIntents"><tr><td colspan="6" style="text-align:center">Carregando...</td></tr></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="modalIntent" class="modal">
+        <div class="modal-content">
+            <h3 id="modalTitle">Nova Intenção</h3>
+            <form id="formIntent">
+                <input type="hidden" id="intentId">
+                <div class="form-group">
+                    <label>Palavras-chave (clique no X para remover)</label>
+                    <div id="keywordsContainer"></div>
+                    <div class="add-keyword">
+                        <input type="text" id="newKeyword" placeholder="Ex: preço, quanto custa">
+                        <button type="button" id="btnAddKeyword" class="btn-editar">Adicionar</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Resposta do bot</label>
+                    <textarea id="response" rows="4" placeholder="Digite a resposta que o bot dará..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Ação especial (opcional)</label>
+                    <select id="action">
+                        <option value="">Nenhuma</option>
+                        <option value="transferToHuman">Transferir para atendente humano</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Status</label>
+                    <select id="enabled">
+                        <option value="1">Ativo</option>
+                        <option value="0">Inativo</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-novo" style="width:100%; justify-content:center;">Salvar</button>
+                <button type="button" id="btnCancelar" class="btn-excluir" style="width:100%; margin-top:10px;">Cancelar</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let keywordsArray = [];
+
+        async function carregarIntents() {
+            try {
+                const res = await fetch('/api/admin/bot-intents');
+                if (!res.ok) throw new Error('Erro ao carregar');
+                const intents = await res.json();
+                const tbody = document.getElementById('listaIntents');
+                if (intents.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center">Nenhuma intenção cadastrada</td></tr>';
+                    return;
+                }
+                tbody.innerHTML = intents.map(i => {
+                    const keywords = JSON.parse(i.keywords || '[]').join(', ');
+                    const statusBadge = i.enabled ? '<span class="badge-ativo">Ativo</span>' : '<span class="badge-inativo">Inativo</span>';
+                    const toggleText = i.enabled ? 'Desativar' : 'Ativar';
+                    return `
+                        <tr>
+                            <td>${i.id}</td>
+                            <td>${escapeHtml(keywords)}</td>
+                            <td>${escapeHtml(i.response.substring(0, 80))}${i.response.length > 80 ? '...' : ''}</td>
+                            <td>${i.action || '-'}</td>
+                            <td>${statusBadge}<br><button class="btn-toggle" onclick="toggleIntent(${i.id}, ${i.enabled ? 0 : 1})">${toggleText}</button></td>
+                            <td>
+                                <button class="btn-editar" onclick="editarIntent(${i.id})"><i class="fas fa-edit"></i> Editar</button>
+                                <button class="btn-excluir" onclick="excluirIntent(${i.id})"><i class="fas fa-trash"></i> Excluir</button>
+                            </td>
+                        </tr>
+                    `;
+                }).join('');
+            } catch (error) {
+                console.error(error);
+                document.getElementById('listaIntents').innerHTML = '<tr><td colspan="6" style="text-align:center">Erro ao carregar. Verifique se está logado.</td></tr>';
+            }
+        }
+
+        function renderKeywords() {
+            const container = document.getElementById('keywordsContainer');
+            container.innerHTML = keywordsArray.map((kw, idx) => `
+                <span class="keyword-tag">${escapeHtml(kw)} <i class="fas fa-times-circle remove-keyword" data-index="${idx}"></i></span>
+            `).join('');
+            document.querySelectorAll('.remove-keyword').forEach(el => {
+                el.addEventListener('click', (e) => {
+                    const idx = parseInt(el.dataset.index);
+                    keywordsArray.splice(idx, 1);
+                    renderKeywords();
+                });
+            });
+        }
+
+        document.getElementById('btnAddKeyword').addEventListener('click', () => {
+            const input = document.getElementById('newKeyword');
+            const kw = input.value.trim();
+            if (kw && !keywordsArray.includes(kw)) {
+                keywordsArray.push(kw);
+                renderKeywords();
+                input.value = '';
+            }
+        });
+
+        async function editarIntent(id) {
+            const res = await fetch('/api/admin/bot-intents');
+            const intents = await res.json();
+            const intent = intents.find(i => i.id == id);
+            if (!intent) return;
+            document.getElementById('intentId').value = intent.id;
+            document.getElementById('response').value = intent.response;
+            document.getElementById('action').value = intent.action || '';
+            document.getElementById('enabled').value = intent.enabled;
+            keywordsArray = JSON.parse(intent.keywords || '[]');
+            renderKeywords();
+            document.getElementById('modalTitle').innerHTML = 'Editar Intenção';
+            document.getElementById('modalIntent').style.display = 'flex';
+        }
+
+        async function excluirIntent(id) {
+            if (confirm('Tem certeza que deseja excluir esta intenção?')) {
+                const res = await fetch(`/api/admin/bot-intents/${id}`, { method: 'DELETE' });
+                if (res.ok) carregarIntents();
+                else alert('Erro ao excluir');
+            }
+        }
+
+        async function toggleIntent(id, newStatus) {
+            // Buscar os dados atuais
+            const resGet = await fetch('/api/admin/bot-intents');
+            const intents = await resGet.json();
+            const intent = intents.find(i => i.id == id);
+            if (!intent) return;
+            const data = {
+                keywords: JSON.parse(intent.keywords),
+                response: intent.response,
+                action: intent.action,
+                enabled: newStatus
+            };
+            const resPut = await fetch(`/api/admin/bot-intents/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            if (resPut.ok) carregarIntents();
+        }
+
+        document.getElementById('formIntent').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('intentId').value;
+            const data = {
+                keywords: keywordsArray,
+                response: document.getElementById('response').value,
+                action: document.getElementById('action').value || null,
+                enabled: parseInt(document.getElementById('enabled').value)
+            };
+            const url = id ? `/api/admin/bot-intents/${id}` : '/api/admin/bot-intents';
+            const method = id ? 'PUT' : 'POST';
+            const res = await fetch(url, {
+                method,
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            if (res.ok) {
+                document.getElementById('modalIntent').style.display = 'none';
+                carregarIntents();
+            } else {
+                alert('Erro ao salvar');
+            }
+        });
+
+        document.getElementById('btnNovo').onclick = () => {
+            document.getElementById('intentId').value = '';
+            document.getElementById('response').value = '';
+            document.getElementById('action').value = '';
+            document.getElementById('enabled').value = '1';
+            keywordsArray = [];
+            renderKeywords();
+            document.getElementById('modalTitle').innerHTML = 'Nova Intenção';
+            document.getElementById('modalIntent').style.display = 'flex';
+        };
+        document.getElementById('btnCancelar').onclick = () => document.getElementById('modalIntent').style.display = 'none';
+        document.getElementById('logoutBtn').addEventListener('click', async (e) => {
+            e.preventDefault();
+            await fetch('/api/admin/logout', { method: 'POST' });
+            window.location.href = '/admin/login.html';
+        });
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            return text.replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+
+        carregarIntents();
+    </script>
+</body>
+</html>

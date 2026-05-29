@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro | òtica Valentim</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- CSS Principal -->
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <style>
+        /* Estilos específicos da página de cadastro */
+        .cadastro-page {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 0;
+        }
+        .cadastro-container {
+            max-width: 600px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        .cadastro-card {
+            background: var(--kessy-white);
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: var(--kessy-shadow-lg);
+        }
+        .cadastro-header {
+            background: linear-gradient(135deg, var(--kessy-primary), var(--kessy-primary-dark));
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .cadastro-header .icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+        .cadastro-header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+        .cadastro-body {
+            padding: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--kessy-text);
+        }
+        .input-with-icon {
+            position: relative;
+        }
+        .input-with-icon i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--kessy-primary-light);
+        }
+        .input-with-icon input, .input-with-icon select {
+            width: 100%;
+            padding: 12px 15px 12px 45px;
+            border: 1px solid var(--kessy-border);
+            border-radius: 50px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+        }
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 50px;
+            border: 1px solid var(--kessy-border);
+            font-family: 'Inter', sans-serif;
+        }
+        .checkbox-group {
+            margin: 20px 0;
+        }
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+        .btn-cadastrar {
+            width: 100%;
+            background: var(--kessy-primary);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-cadastrar:hover {
+            background: var(--kessy-primary-dark);
+            transform: translateY(-2px);
+        }
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        .benefit-item i {
+            font-size: 1.5rem;
+            color: var(--kessy-primary);
+            margin-bottom: 5px;
+        }
+        .benefit-item h4 {
+            font-size: 0.9rem;
+            margin: 5px 0;
+            color: var(--kessy-text);
+        }
+        .benefit-item p {
+            font-size: 0.7rem;
+            color: var(--kessy-text-light);
+        }
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            color: var(--kessy-text-light);
+        }
+        .login-link a {
+            color: var(--kessy-primary);
+            text-decoration: none;
+        }
+        .message {
+            padding: 12px;
+            border-radius: 50px;
+            text-align: center;
+            margin-top: 15px;
+        }
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+        }
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #fff;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ========== TOP BAR - ESTILO KESSY ========== -->
+<div class="top-bar-kessy">
+    <div class="container">
+        <div class="top-bar-links">
+            <a href="/atendimento.html"><i class="fas fa-headset"></i> Atendimento</a>
+            <a href="/sobre.html"><i class="fas fa-info-circle"></i> Sobre a òtica Valentim</a>
+        </div>
+        <div class="top-bar-icons">
+            
+        
+        </div>
+    </div>
+</div>
+
+<!-- ========== HEADER PRINCIPAL ========== -->
+<header class="header-kessy">
+    <div class="container">
+        <div class="logo-kessy">
+            <a href="/index.html">
+                <img src="/img/logo/logo.jpg" alt="òtica Valentim" onerror="this.src='https://placehold.co/150x50/4E342E/white?text=Ótica+Macaé'">
+            </a>
+        </div>
+
+        <nav class="nav-kessy" id="mainNavKessy">
+            <ul class="menu-principal">
+                <li class="menu-item-has-children">
+                    <a href="/produtos.html?categoria=grau">Óculos de Grau</a>
+                    <div class="megamenu-kessy">
+                        <div class="megamenu-container">
+                            <div class="megamenu-coluna">
+                                <h4>Por Formato</h4>
+                                <ul>
+                                    <li><a href="/produtos.html?formato=redondo">Redondo</a></li>
+                                    <li><a href="/produtos.html?formato=quadrado">Quadrado</a></li>
+                                    <li><a href="/produtos.html?formato=retangular">Retangular</a></li>
+                                </ul>
+                            </div>
+                            <div class="megamenu-coluna">
+                                <h4>Por Gênero</h4>
+                                <ul>
+                                    <li><a href="/produtos.html?categoria=grau&sub=masculino">Masculino</a></li>
+                                    <li><a href="/produtos.html?categoria=grau&sub=feminino">Feminino</a></li>
+                                    <li><a href="/produtos.html?categoria=grau&sub=infantil">Infantil</a></li>
+                                </ul>
+                            </div>
+                            <div class="megamenu-coluna">
+                                <h4>Lentes Especiais</h4>
+                                <ul>
+                                    <li><a href="/produtos.html?lente=blue-light">Blue Light</a></li>
+                                    <li><a href="/produtos.html?lente=fotossensivel">Fotossensível</a></li>
+                                    <li><a href="/produtos.html?lente=antirreflexo">Antirreflexo</a></li>
+                                </ul>
+                            </div>
+                            <div class="megamenu-coluna">
+                                <h4>Marcas</h4>
+                                <ul>
+                                    <li><a href="/produtos.html?marca=rayban">Ray-Ban</a></li>
+                                    <li><a href="/produtos.html?marca=oakley">Oakley</a></li>
+                                    <li><a href="/produtos.html?marca=gucci">Gucci</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="menu-item-has-children">
+                    <a href="/produtos.html?categoria=sol">Óculos de Sol</a>
+                    <div class="megamenu-kessy">
+                        <div class="megamenu-container">
+                            <div class="megamenu-coluna">
+                                <h4>Por Estilo</h4>
+                                <ul>
+                                    <li><a href="/produtos.html?categoria=sol&sub=masculino">Masculino</a></li>
+                                    <li><a href="/produtos.html?categoria=sol&sub=feminino">Feminino</a></li>
+                                    <li><a href="/produtos.html?categoria=sol&sub=infantil">Infantil</a></li>
+                                </ul>
+                            </div>
+                            <div class="megamenu-coluna">
+                                <h4>Marcas</h4>
+                                <ul>
+                                    <li><a href="/produtos.html?marca=rayban&categoria=sol">Ray-Ban</a></li>
+                                    <li><a href="/produtos.html?marca=oakley&categoria=sol">Oakley</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li><a href="/produtos.html?categoria=lentes">Lentes de Contato</a></li>
+                <li><a href="/protecao.html">Óculos de Proteção</a></li>
+                <li><a href="/chat.html">Chat Online</a></li>
+                <li><a href="/contato.html">Contato</a></li>
+            </ul>
+        </nav>
+
+        <div class="whatsapp-kessy">
+            <a href="https://wa.me/5522999416737" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-whatsapp"></i> <span>Precisa de Ajuda?</span>
+            </a>
+        </div>
+
+        <div class="hamburger-kessy" id="hamburgerKessy">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</header>
+
+<div class="nav-overlay-kessy" id="navOverlayKessy"></div>
+
+<!-- ========== WHATSAPP FLUTUANTE ========== -->
+<a href="https://wa.me/22 999416737?text=Olá!%20Gostaria%20de%20mais%20informações" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
+    <i class="fab fa-whatsapp"></i>
+</a>
+
+<!-- ========== BENEFITS BAR ========== -->
+<div class="benefits-bar">
+    <div class="container">
+        <i class="fas fa-truck"></i> Frete grátis acima de R$ 299,00
+        <span>|</span>
+        <i class="fas fa-credit-card"></i> Parcele em até 10x sem juros
+        <span>|</span>
+        <i class="fas fa-shield-alt"></i> Produtos 100% originais
+    </div>
+</div>
+
+<!-- ========== CONTEÚDO PRINCIPAL ========== -->
+<main class="cadastro-page">
+    <div class="cadastro-container">
+        <div class="cadastro-card">
+            <div class="cadastro-header">
+                <div class="icon"><i class="fas fa-user-plus"></i></div>
+                <h1>Criar Conta</h1>
+                <p>Cadastre-se e ganhe 10% OFF na primeira compra!</p>
+            </div>
+            <div class="cadastro-body">
+                <form id="cadastroForm">
+                    <div class="form-group">
+                        <label><i class="fas fa-user"></i> Nome completo *</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="nome" placeholder="Digite seu nome completo" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-envelope"></i> E-mail *</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="email" placeholder="seu@email.com" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fab fa-whatsapp"></i> WhatsApp *</label>
+                        <div class="input-with-icon">
+                            <i class="fab fa-whatsapp"></i>
+                            <input type="tel" id="telefone" placeholder="(22) 99999-9999" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-calendar-alt"></i> Data de nascimento</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                            <input type="date" id="dataNascimento">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-glasses"></i> Preferências</label>
+                        <select id="preferencias">
+                            <option value="">Selecione</option>
+                            <option value="grau">Óculos de Grau</option>
+                            <option value="sol">Óculos de Sol</option>
+                            <option value="lentes">Lentes de Contato</option>
+                            <option value="todos">Todos</option>
+                        </select>
+                    </div>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="newsletter" checked>
+                            <span>Desejo receber ofertas e novidades por e-mail</span>
+                        </label>
+                    </div>
+                    <button type="submit" class="btn-cadastrar" id="btnSubmit">
+                        <i class="fas fa-gift"></i> Cadastrar e ganhar 10% OFF
+                    </button>
+                </form>
+                <div id="mensagemCadastro" class="message"></div>
+                <div class="benefits-grid">
+                    <div class="benefit-item"><i class="fas fa-percent"></i><h4>10% OFF</h4><p>Na primeira compra</p></div>
+                    <div class="benefit-item"><i class="fas fa-tag"></i><h4>Ofertas exclusivas</h4><p>Para cadastrados</p></div>
+                    <div class="benefit-item"><i class="fas fa-star"></i><h4>Programa de pontos</h4><p>Acumule e troque</p></div>
+                    <div class="benefit-item"><i class="fas fa-birthday-cake"></i><h4>Desconto aniversário</h4><p>Presente especial</p></div>
+                </div>
+                <div class="login-link">
+                    <p>Já tem cadastro? <a href="/admin/entrar">Acesse sua conta</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div><h4>òtica Valentim</h4><p>Rua R. Teixeira de Gouvéa, 641<br>Macaé - RJ</p><p>(22) 2762-3007</p></div>
+            <div><h4>Atendimento</h4><p>WhatsApp: (22) 99941-6737</p><p> Telefone: (22) 2762-3007</p></div>
+            <div><h4>Pagamento</h4><i class="fab fa-cc-visa"></i> <i class="fab fa-cc-mastercard"></i> <i class="fab fa-paypal"></i> <i class="fas fa-qrcode"></i><p>Até 10x sem juros</p></div>
+        </div>
+        <div class="copyright"><p>&copy; <span id="currentYear"></span> òtica Valentim</p></div>
+    </div>
+</footer>
+
+<script>
+// ========== MENU ESTILO KESSY ==========
+(function() {
+    const hamburger = document.getElementById('hamburgerKessy');
+    const nav = document.getElementById('mainNavKessy');
+    const overlay = document.getElementById('navOverlayKessy');
+
+    if (!hamburger || !nav || !overlay) return;
+
+    function toggleMenu() {
+        hamburger.classList.toggle('active');
+        nav.classList.toggle('active');
+        overlay.classList.toggle('active');
+        document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
+    }
+
+    function closeMenu() {
+        hamburger.classList.remove('active');
+        nav.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+        document.querySelectorAll('.menu-item-has-children.active').forEach(el => {
+            el.classList.remove('active');
+        });
+    }
+
+    hamburger.addEventListener('click', toggleMenu);
+    overlay.addEventListener('click', closeMenu);
+
+    function setupMobileDropdowns() {
+        if (window.innerWidth <= 992) {
+            document.querySelectorAll('.menu-item-has-children > a').forEach(link => {
+                link.removeEventListener('click', handleMobileClick);
+                link.addEventListener('click', handleMobileClick);
+            });
+        } else {
+            document.querySelectorAll('.menu-item-has-children > a').forEach(link => {
+                link.removeEventListener('click', handleMobileClick);
+            });
+        }
+    }
+
+    function handleMobileClick(e) {
+        if (window.innerWidth <= 992) {
+            e.preventDefault();
+            const parent = this.parentElement;
+            parent.classList.toggle('active');
+        }
+    }
+
+    document.querySelectorAll('.nav-kessy a:not(.menu-item-has-children > a)').forEach(link => {
+        link.addEventListener('click', closeMenu);
+    });
+
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 992) {
+            closeMenu();
+        }
+        setupMobileDropdowns();
+    });
+
+    setupMobileDropdowns();
+})();
+
+// ========== FORMATAÇÃO DE TELEFONE ==========
+document.getElementById('telefone').addEventListener('input', function(e) {
+    let value = e.target.value.replace(/\D/g, '');
+    if (value.length > 11) value = value.slice(0, 11);
+    if (value.length >= 2 && value.length <= 10) {
+        value = value.replace(/^(\d{2})(\d)/, '($1) $2');
+        value = value.replace(/(\d{4})(\d{1,4})$/, '$1-$2');
+    } else if (value.length >= 11) {
+        value = value.replace(/^(\d{2})(\d)/, '($1) $2');
+        value = value.replace(/(\d{5})(\d{1,4})$/, '$1-$2');
+    }
+    e.target.value = value;
+});
+
+// ========== SUBMIT DO FORMULÁRIO ==========
+document.getElementById('cadastroForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const nome = document.getElementById('nome').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const telefone = document.getElementById('telefone').value.trim();
+    const dataNascimento = document.getElementById('dataNascimento').value;
+    const preferencias = document.getElementById('preferencias').value;
+    const newsletter = document.getElementById('newsletter').checked;
+    const msgDiv = document.getElementById('mensagemCadastro');
+    const btnSubmit = document.getElementById('btnSubmit');
+    
+    if (!nome) {
+        msgDiv.className = 'message error';
+        msgDiv.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Informe seu nome.';
+        return;
+    }
+    
+    if (!email || !email.includes('@')) {
+        msgDiv.className = 'message error';
+        msgDiv.innerHTML = '<i class="fas fa-envelope"></i> Informe um e-mail válido.';
+        return;
+    }
+    
+    const telefoneLimpo = telefone.replace(/\D/g, '');
+    if (telefoneLimpo.length < 10 || telefoneLimpo.length > 11) {
+        msgDiv.className = 'message error';
+        msgDiv.innerHTML = '<i class="fab fa-whatsapp"></i> Informe um número de WhatsApp válido com DDD.';
+        return;
+    }
+    
+    btnSubmit.innerHTML = '<span class="spinner"></span> Processando...';
+    btnSubmit.disabled = true;
+    
+    try {
+        const response = await fetch('/api/clientes', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ nome, email, telefone: telefoneLimpo, data_nascimento: dataNascimento, preferencias, newsletter })
+        });
+        
+        const result = await response.json();
+        
+        if (response.ok) {
+            msgDiv.className = 'message success';
+            msgDiv.innerHTML = `
+                <i class="fas fa-check-circle"></i> 
+                <strong>Cadastro realizado!</strong><br><br>
+                Seu cupom: <strong>${result.cupom}</strong><br><br>
+                <a href="${result.linkWhatsApp}" target="_blank" style="display: inline-block; background: #25D366; color: white; padding: 12px 24px; border-radius: 50px; text-decoration: none; margin: 10px 0;">
+                    <i class="fab fa-whatsapp"></i> Receber cupom no WhatsApp
+                </a><br>
+                <small>Clique no botão acima para receber seu cupom! Você tem 1 minuto.</small>
+            `;
+            document.getElementById('cadastroForm').reset();
+            setTimeout(() => window.location.href = '/index.html', 8000);
+        } else {
+            msgDiv.className = 'message error';
+            msgDiv.innerHTML = `<i class="fas fa-times-circle"></i> ${result.error}`;
+            btnSubmit.innerHTML = '<i class="fas fa-gift"></i> Cadastrar e ganhar 10% OFF';
+            btnSubmit.disabled = false;
+        }
+    } catch (error) {
+        msgDiv.className = 'message error';
+        msgDiv.innerHTML = '<i class="fas fa-wifi"></i> Erro de conexão.';
+        btnSubmit.innerHTML = '<i class="fas fa-gift"></i> Cadastrar e ganhar 10% OFF';
+        btnSubmit.disabled = false;
+    }
+});
+
+document.getElementById('currentYear').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

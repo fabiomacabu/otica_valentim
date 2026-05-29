@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Admin Ótica Valentim</title>
+    
+    <!-- Google Fonts e Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f4f2ef;
+            color: #2c1a15;
+        }
+
+        /* ========== ADMIN NAVBAR ========== */
+        .admin-nav {
+            background: #2c1a15;
+            padding: 0 1.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .admin-nav .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding: 0.8rem 0;
+        }
+        .admin-nav h3 {
+            color: #f5e6d3;
+            font-weight: 600;
+            font-size: 1.3rem;
+            letter-spacing: -0.3px;
+        }
+        .admin-nav h3 i {
+            margin-right: 8px;
+            color: #f5a623;
+        }
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .nav-links a {
+            color: #f0e6df;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 40px;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        .nav-links a:hover {
+            background: rgba(245, 166, 35, 0.2);
+            color: #f5a623;
+        }
+        .nav-links a.active {
+            background: #f5a623;
+            color: #2c1a15;
+        }
+        #logoutBtn {
+            background: rgba(220, 53, 69, 0.15);
+            color: #ffaaa5;
+        }
+        #logoutBtn:hover {
+            background: #dc3545;
+            color: white;
+        }
+
+        /* ========== CONTAINER PRINCIPAL ========== */
+        .main-container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        /* ========== CARDS DE ESTATÍSTICAS ========== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        .stat-card {
+            background: white;
+            border-radius: 28px;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 30px -12px rgba(0,0,0,0.15);
+        }
+        .stat-info h3 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #8b6b5d;
+            margin-bottom: 0.5rem;
+        }
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #2c1a15;
+        }
+        .stat-icon {
+            width: 55px;
+            height: 55px;
+            background: #fef6ed;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #b85c1a;
+            font-size: 1.8rem;
+        }
+
+        /* ========== TABELAS ========== */
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin: 1.5rem 0 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #3e2a24;
+        }
+        .table-wrapper {
+            background: white;
+            border-radius: 24px;
+            overflow-x: auto;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            margin-bottom: 2rem;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+        .data-table th {
+            text-align: left;
+            padding: 1rem 1.2rem;
+            background: #faf7f4;
+            color: #4a372f;
+            font-weight: 600;
+            border-bottom: 1px solid #e6dfd9;
+        }
+        .data-table td {
+            padding: 1rem 1.2rem;
+            border-bottom: 1px solid #efe8e2;
+            vertical-align: middle;
+            color: #2c1a15;
+        }
+        .data-table tr:hover td {
+            background: #fefaf6;
+        }
+        .badge-nao-informado {
+            background: #e9ecef;
+            color: #6c757d;
+            padding: 0.2rem 0.6rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+        .btn-editar, .btn-excluir, .btn-reenviar {
+            border: none;
+            padding: 0.3rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-right: 0.3rem;
+        }
+        .btn-editar {
+            background: #f5a623;
+            color: #2c1a15;
+        }
+        .btn-editar:hover {
+            background: #e69500;
+            transform: translateY(-1px);
+        }
+        .btn-excluir {
+            background: #dc3545;
+            color: white;
+        }
+        .btn-excluir:hover {
+            background: #c82333;
+        }
+        .btn-reenviar {
+            background: #25D366;
+            color: white;
+        }
+        .btn-reenviar:hover {
+            background: #128C7E;
+        }
+
+        /* ========== MODAL ========== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background: white;
+            max-width: 500px;
+            width: 90%;
+            border-radius: 32px;
+            padding: 2rem;
+            box-shadow: 0 30px 40px rgba(0,0,0,0.2);
+        }
+        .modal-content h3 {
+            margin-bottom: 1.2rem;
+            color: #2c1a15;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.4rem;
+            color: #4a372f;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.7rem 1rem;
+            border: 1px solid #ddd6d0;
+            border-radius: 20px;
+            font-family: inherit;
+            transition: 0.2s;
+        }
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #f5a623;
+            box-shadow: 0 0 0 3px rgba(245,166,35,0.2);
+        }
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .modal-buttons button {
+            flex: 1;
+            padding: 0.7rem;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+        }
+        .btn-save {
+            background: #f5a623;
+            color: #2c1a15;
+        }
+        .btn-cancel {
+            background: #e9ecef;
+            color: #495057;
+        }
+        .email-opcional {
+            font-size: 0.7rem;
+            color: #8b6b5d;
+            margin-top: 4px;
+        }
+        
+        @media (max-width: 768px) {
+            .admin-nav .container {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+            }
+            .nav-links {
+                justify-content: center;
+            }
+            .stat-card {
+                padding: 1rem;
+            }
+            .stat-number {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="admin-nav">
+    <div class="container">
+        <h3><i class="fas fa-eye"></i> Ótica Valentim · Admin</h3>
+        <div class="nav-links">
+            <a href="/admin/dashboard.html">Dashboard</a>
+            <a href="/admin/produtos-admin.html">Produtos</a>
+            <a href="/admin/chat-admin.html">Chat</a>
+            <a href="/admin/cupons-admin.html">Cupons</a>
+            <a href="/admin/marcas-admin.html">Marcas</a>
+            <a href="/admin/chat-bot-admin.html">Bot</a>
+            <a href="/admin/notificacoes-admin.html">Notificações</a>
+            <a href="#" id="logoutBtn">Sair</a>
+        </div>
+    </div>
+</div>
+
+<div class="main-container">
+    <!-- Cards de estatísticas -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-info">
+                <h3><i class="fas fa-cube"></i> Produtos</h3>
+                <div class="stat-number" id="totalProdutos">0</div>
+            </div>
+            <div class="stat-icon"><i class="fas fa-cube"></i></div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-info">
+                <h3><i class="fas fa-users"></i> Clientes</h3>
+                <div class="stat-number" id="totalClientes">0</div>
+            </div>
+            <div class="stat-icon"><i class="fas fa-users"></i></div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-info">
+                <h3><i class="fas fa-comment-dots"></i> Conversas</h3>
+                <div class="stat-number" id="totalConversas">0</div>
+            </div>
+            <div class="stat-icon"><i class="fas fa-comment-dots"></i></div>
+        </div>
+    </div>
+
+    <!-- Últimos clientes -->
+    <div class="section-title">
+        <i class="fas fa-history"></i> Últimos cadastros
+    </div>
+    <div class="table-wrapper">
+        <table class="data-table">
+            <thead>
+                <tr><th>Nome</th><th>E-mail</th><th>Telefone</th><th>Preferência</th><th>Data</th><th>Ações</th></tr>
+            </thead>
+            <tbody id="listaUltimosClientes"><td><td colspan="6" style="text-align:center; padding:2rem;">Carregando...</td></tr></tbody>
+        </table>
+    </div>
+
+    <!-- Todos os clientes -->
+    <div class="section-title">
+        <i class="fas fa-database"></i> Todos os clientes
+    </div>
+    <div class="table-wrapper">
+        <table class="data-table">
+            <thead>
+                <tr><th>ID</th><th>Nome</th><th>E-mail</th><th>Telefone</th><th>Preferência</th><th>Data</th><th>Ações</th></tr>
+            </thead>
+            <tbody id="listaTodosClientes"><tr><td colspan="7" style="text-align:center; padding:2rem;">Carregando...</td></tr></tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal Editar Cliente -->
+<div id="modalEditarCliente" class="modal">
+    <div class="modal-content">
+        <h3><i class="fas fa-user-edit"></i> Editar cliente</h3>
+        <form id="formEditarCliente">
+            <input type="hidden" id="editClienteId">
+            <div class="form-group">
+                <label>Nome completo *</label>
+                <input type="text" id="editNome" required>
+            </div>
+            <div class="form-group">
+                <label>E-mail <span style="font-weight:normal;">(opcional)</span></label>
+                <input type="email" id="editEmail">
+                <div class="email-opcional">Utilizado apenas para ofertas</div>
+            </div>
+            <div class="form-group">
+                <label>WhatsApp *</label>
+                <input type="tel" id="editTelefone" required>
+            </div>
+            <div class="form-group">
+                <label>Preferências</label>
+                <select id="editPreferencias">
+                    <option value="">Selecione</option>
+                    <option value="grau">Óculos de Grau</option>
+                    <option value="sol">Óculos de Sol</option>
+                    <option value="lentes">Lentes de Contato</option>
+                </select>
+            </div>
+            <div class="modal-buttons">
+                <button type="submit" class="btn-save">Salvar</button>
+                <button type="button" class="btn-cancel" id="btnCancelarEdicao">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    // ========== VERIFICAR LOGIN ==========
+    async function verificarLogin() {
+        try {
+            const res = await fetch('/api/admin/check');
+            const data = await res.json();
+            if (!data.isAdmin) window.location.href = '/admin/login.html';
+        } catch(e) {
+            window.location.href = '/admin/login.html';
+        }
+    }
+
+    // ========== FORMATAÇÃO ==========
+    function formatarTelefone(telefone) {
+        if (!telefone) return '-';
+        const tel = telefone.replace(/\D/g, '');
+        if (tel.length === 11) return `(${tel.slice(0,2)}) ${tel.slice(2,7)}-${tel.slice(7)}`;
+        if (tel.length === 10) return `(${tel.slice(0,2)}) ${tel.slice(2,6)}-${tel.slice(6)}`;
+        return telefone;
+    }
+    function formatarPreferencia(pref) {
+        if (!pref) return '<span class="badge-nao-informado">Não definido</span>';
+        const map = { grau: 'Óculos de Grau', sol: 'Óculos de Sol', lentes: 'Lentes de Contato' };
+        return map[pref] || pref;
+    }
+    function escapeHtml(text) {
+        if (!text) return '';
+        return text.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    // ========== CARREGAR DADOS ==========
+    async function carregarStats() {
+        try {
+            const produtosRes = await fetch('/api/produtos');
+            const produtos = await produtosRes.json();
+            document.getElementById('totalProdutos').innerText = produtos.length;
+
+            const clientesRes = await fetch('/api/admin/clientes');
+            const clientes = await clientesRes.json();
+            document.getElementById('totalClientes').innerText = clientes.length;
+
+            const conversasRes = await fetch('/api/admin/conversas');
+            const conversas = await conversasRes.json();
+            document.getElementById('totalConversas').innerText = conversas.length;
+
+            const ultimos = clientes.slice(0, 5);
+            const tbodyUltimos = document.getElementById('listaUltimosClientes');
+            if (ultimos.length === 0) {
+                tbodyUltimos.innerHTML = '<tr><td colspan="6" style="text-align:center">Nenhum cliente cadastrado</td></tr>';
+            } else {
+                tbodyUltimos.innerHTML = ultimos.map(c => `
+                    <tr>
+                        <td><strong>${escapeHtml(c.nome || '-')}</strong></td>
+                        <td>${c.email ? escapeHtml(c.email) : '<span class="badge-nao-informado">Não informado</span>'}</td>
+                        <td>${formatarTelefone(c.telefone)}</td>
+                        <td>${formatarPreferencia(c.preferencias)}</td>
+                        <td>${new Date(c.created_at).toLocaleDateString('pt-BR')}</td>
+                        <td>
+                            <button class="btn-editar" onclick="editarCliente(${c.id})"><i class="fas fa-edit"></i> Editar</button>
+                            <button class="btn-excluir" onclick="excluirCliente(${c.id})"><i class="fas fa-trash"></i> Excluir</button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+
+            const tbodyTodos = document.getElementById('listaTodosClientes');
+            if (clientes.length === 0) {
+                tbodyTodos.innerHTML = '<tr><td colspan="7" style="text-align:center">Nenhum cliente cadastrado</td></tr>';
+            } else {
+                tbodyTodos.innerHTML = clientes.map(c => `
+                    <tr>
+                        <td>${c.id}</td>
+                        <td><strong>${escapeHtml(c.nome || '-')}</strong></td>
+                        <td>${c.email ? escapeHtml(c.email) : '<span class="badge-nao-informado">Não informado</span>'}</td>
+                        <td>${formatarTelefone(c.telefone)}</td>
+                        <td>${formatarPreferencia(c.preferencias)}</td>
+                        <td>${new Date(c.created_at).toLocaleDateString('pt-BR')}</td>
+                        <td>
+                            <button class="btn-editar" onclick="editarCliente(${c.id})"><i class="fas fa-edit"></i> Editar</button>
+                            <button class="btn-excluir" onclick="excluirCliente(${c.id})"><i class="fas fa-trash"></i> Excluir</button>
+                            <button class="btn-reenviar" onclick="reenviarCupomCliente(${c.id})"><i class="fab fa-whatsapp"></i> Reenviar</button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    // ========== CRUD CLIENTES ==========
+    async function editarCliente(id) {
+        try {
+            const res = await fetch(`/api/admin/clientes/${id}`);
+            const cliente = await res.json();
+            document.getElementById('editClienteId').value = cliente.id;
+            document.getElementById('editNome').value = cliente.nome || '';
+            document.getElementById('editEmail').value = cliente.email || '';
+            document.getElementById('editTelefone').value = formatarTelefone(cliente.telefone) || '';
+            document.getElementById('editPreferencias').value = cliente.preferencias || '';
+            document.getElementById('modalEditarCliente').style.display = 'flex';
+        } catch (err) {
+            alert('Erro ao carregar cliente');
+        }
+    }
+
+    document.getElementById('formEditarCliente').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const id = document.getElementById('editClienteId').value;
+        const telefoneRaw = document.getElementById('editTelefone').value.replace(/\D/g, '');
+        const dados = {
+            nome: document.getElementById('editNome').value,
+            email: document.getElementById('editEmail').value || '',
+            telefone: telefoneRaw,
+            preferencias: document.getElementById('editPreferencias').value,
+            newsletter: 1,
+            data_nascimento: null
+        };
+        try {
+            const res = await fetch(`/api/admin/clientes/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dados)
+            });
+            if (res.ok) {
+                alert('Cliente atualizado!');
+                document.getElementById('modalEditarCliente').style.display = 'none';
+                carregarStats();
+            } else {
+                const err = await res.json();
+                alert('Erro: ' + err.error);
+            }
+        } catch (error) {
+            alert('Erro de conexão');
+        }
+    });
+
+    document.getElementById('btnCancelarEdicao').onclick = () => {
+        document.getElementById('modalEditarCliente').style.display = 'none';
+    };
+
+    async function excluirCliente(id) {
+        if (confirm('Excluir este cliente permanentemente?')) {
+            try {
+                const res = await fetch(`/api/admin/clientes/${id}`, { method: 'DELETE' });
+                if (res.ok) {
+                    alert('Cliente excluído');
+                    carregarStats();
+                } else {
+                    alert('Erro ao excluir');
+                }
+            } catch (error) {
+                alert('Erro de conexão');
+            }
+        }
+    }
+
+    async function reenviarCupomCliente(id) {
+        try {
+            const res = await fetch(`/api/admin/reenviar-cupom/${id}`, { method: 'POST' });
+            const data = await res.json();
+            if (data.success) {
+                if (confirm('Cupom gerado! Abrir WhatsApp para enviar?')) {
+                    window.open(data.linkWhatsApp, '_blank');
+                }
+            } else {
+                alert('Erro ao gerar cupom');
+            }
+        } catch (error) {
+            alert('Erro de conexão');
+        }
+    }
+
+    document.getElementById('logoutBtn').addEventListener('click', async (e) => {
+        e.preventDefault();
+        await fetch('/api/admin/logout', { method: 'POST' });
+        window.location.href = '/admin/login.html';
+    });
+
+    verificarLogin();
+    carregarStats();
+    setInterval(carregarStats, 30000);
+</script>
+</body>
+</html>

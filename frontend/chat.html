@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat | Ótica Valentim</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .chat-page { padding: 60px 0; }
+        .chat-container { max-width: 800px; margin: 0 auto; background: #fff; border-radius: 30px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); overflow: hidden; }
+        .chat-header { background: linear-gradient(135deg, #4E342E, #3E2723); color: white; padding: 25px; text-align: center; }
+        .chat-header i { font-size: 2.5rem; margin-bottom: 10px; }
+        .chat-form { padding: 30px; }
+        .assuntos-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 30px; }
+        .assunto-card { cursor: pointer; transition: all 0.2s ease; border: 2px solid transparent; padding: 15px; text-align: center; border-radius: 16px; background: #f8f9fa; }
+        .assunto-card:hover { transform: translateY(-4px); background: #e0d6d3; border-color: #4E342E; }
+        .assunto-card.selected { border-color: #4E342E; background: rgba(109, 76, 65, 0.1); }
+        .campo-chat { margin-bottom: 20px; }
+        .campo-chat label { display: block; margin-bottom: 8px; font-weight: 500; color: #2c2c2c; }
+        .campo-chat input, .campo-chat textarea { width: 100%; padding: 12px 15px; border: 1px solid #eef2f6; border-radius: 50px; font-family: inherit; }
+        .campo-chat textarea { border-radius: 20px; resize: vertical; }
+        .btn-chat { background: #4E342E; color: white; border: none; padding: 12px 25px; border-radius: 50px; font-weight: 600; cursor: pointer; width: 100%; font-size: 1rem; transition: all 0.3s; }
+        .btn-chat:hover { background: #3E2723; transform: translateY(-2px); }
+        .btn-atendente { background: linear-gradient(135deg, #25D366, #128C7E); margin-top: 15px; }
+        .btn-encerrar { background: linear-gradient(135deg, #dc3545, #b02a37); margin-top: 10px; }
+        .separador { text-align: center; margin: 20px 0; position: relative; }
+        .separador span { background: #fff; padding: 0 15px; position: relative; z-index: 1; color: #6c757d; }
+        .separador::before { content: ''; position: absolute; top: 50%; left: 0; right: 0; height: 1px; background: #eef2f6; }
+        .chat-messages { height: 450px; overflow-y: auto; padding: 20px; background: #f8f9fa; }
+        .message { margin-bottom: 15px; display: flex; flex-direction: column; }
+        .message.cliente .message-bubble { background: #4E342E; color: white; align-self: flex-end; border-radius: 20px 20px 5px 20px; }
+        .message.admin .message-bubble { background: #e9ecef; color: #333; align-self: flex-start; border-radius: 20px 20px 20px 5px; }
+        .message-bubble { max-width: 80%; padding: 12px 18px; border-radius: 20px; word-wrap: break-word; font-size: 0.9rem; line-height: 1.5; }
+        .message-time { font-size: 0.7rem; color: #6c757d; margin-top: 5px; }
+        .chat-input-area { display: flex; padding: 15px; gap: 12px; border-top: 1px solid #eef2f6; background: #fff; align-items: center; }
+        .chat-input-area input { flex: 1; padding: 14px 18px; font-size: 1rem; border: 1px solid #eef2f6; border-radius: 50px; font-family: inherit; }
+        .chat-input-area input:focus { outline: none; border-color: #4E342E; box-shadow: 0 0 0 3px rgba(78, 52, 46, 0.1); }
+        .chat-input-area .btn-chat { width: auto; min-width: 100px; padding: 12px 24px; }
+        .bot-badge { background: #FFC107; color: #3E2723; font-size: 0.65rem; padding: 2px 8px; border-radius: 10px; margin-left: 8px; font-weight: 600; }
+        .loading { text-align: center; padding: 40px; color: #6c757d; }
+        .quick-replies { display: flex; flex-wrap: wrap; gap: 8px; padding: 10px 15px; background: #fff; border-top: 1px solid #eef2f6; }
+        .quick-reply { background: #f0f0f0; border: 1px solid #ddd; border-radius: 30px; padding: 6px 14px; font-size: 0.75rem; cursor: pointer; transition: all 0.2s; }
+        .quick-reply:hover { background: #4E342E; color: white; border-color: #4E342E; }
+        .typing-indicator { display: inline-flex; align-items: center; gap: 4px; background: #e9ecef; padding: 8px 16px; border-radius: 20px; margin-bottom: 10px; }
+        .typing-indicator span { width: 8px; height: 8px; background: #6c757d; border-radius: 50%; animation: typing 1.4s infinite ease-in-out; }
+        @keyframes typing { 0%,60%,100% { transform: translateY(0); opacity: 0.4; } 30% { transform: translateY(-8px); opacity: 1; } }
+    </style>
+</head>
+<body>
+
+<!-- ========== TOP BAR, HEADER, ETC (mantenha o mesmo do seu index.html) ========== -->
+<div class="top-bar-kessy">
+    <div class="container">
+        <div class="top-bar-links">
+            <a href="/atendimento.html"><i class="fas fa-headset"></i> Atendimento</a>
+            <a href="/sobre.html"><i class="fas fa-info-circle"></i> Sobre a Ótica Valentim</a>
+        </div>
+        <div class="top-bar-icons">
+           
+            
+        </div>
+    </div>
+</div>
+
+<header class="header-kessy">
+    <div class="container">
+        <div class="logo-kessy"><a href="/index.html"><img src="/img/logo/logo.jpg" alt="Ótica Valentim" onerror="this.src='https://placehold.co/150x50/4E342E/white?text=Ótica+Macaé'"></a></div>
+        <nav class="nav-kessy" id="mainNavKessy">
+            <ul class="menu-principal">
+                <li class="menu-item-has-children"><a href="/produtos.html?categoria=grau">Óculos de Grau</a></li>
+                <li class="menu-item-has-children"><a href="/produtos.html?categoria=sol">Óculos de Sol</a></li>
+                <li><a href="/produtos.html?categoria=lentes">Lentes de Contato</a></li>
+                <li><a href="/protecao.html">Óculos de Proteção</a></li>
+                <li><a href="/chat.html">Chat Online</a></li>
+                <li><a href="/contato.html">Contato</a></li>
+            </ul>
+        </nav>
+        <div class="whatsapp-kessy"><a href="https://wa.me/5522999416737" target="_blank"><i class="fab fa-whatsapp"></i> <span>Precisa de Ajuda?</span></a></div>
+        <div class="hamburger-kessy" id="hamburgerKessy"><span></span><span></span><span></span></div>
+    </div>
+</header>
+<div class="nav-overlay-kessy" id="navOverlayKessy"></div>
+
+<a href="https://wa.me/5522999416737" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+<div class="benefits-bar">
+    <div class="container">
+        <i class="fas fa-truck"></i> Frete grátis acima de R$ 299,00
+        <span>|</span>
+        <i class="fas fa-credit-card"></i> Parcele em até 10x sem juros
+        <span>|</span>
+        <i class="fas fa-shield-alt"></i> Produtos 100% originais
+    </div>
+</div>
+
+<main class="chat-page">
+    <div class="container">
+        <div id="chatInicial" class="chat-container">
+            <div class="chat-header">
+                <i class="fas fa-headset"></i>
+                <h2>Atendimento ao Cliente</h2>
+                <p>Preencha seus dados e escolha um assunto para começar</p>
+            </div>
+            <div class="chat-form">
+                <div class="assuntos-container" id="assuntosContainer">
+                    <div class="assunto-card" data-assunto="lentes"><i class="fas fa-eye"></i><h4>👁️ Lentes de Contato</h4><p>Tipos, preços, cuidados</p></div>
+                    <div class="assunto-card" data-assunto="exame"><i class="fas fa-stethoscope"></i><h4>🔬 Exame de Vista</h4><p>Agendamento, preços</p></div>
+                    <div class="assunto-card" data-assunto="garantia"><i class="fas fa-shield-alt"></i><h4>🛡️ Garantia</h4><p>Prazos, condições</p></div>
+                    <div class="assunto-card" data-assunto="pagamento"><i class="fas fa-credit-card"></i><h4>💳 Pagamento</h4><p>Parcelas, PIX, descontos</p></div>
+                    <div class="assunto-card" data-assunto="entrega"><i class="fas fa-truck"></i><h4>🚚 Entrega</h4><p>Prazos, fretes</p></div>
+                    <div class="assunto-card" data-assunto="produtos"><i class="fas fa-box"></i><h4>📦 Produtos</h4><p>Catálogo, marcas</p></div>
+                </div>
+                <div class="campo-chat"><label><i class="fas fa-user"></i> Seu nome completo *</label><input type="text" id="clienteNome" required></div>
+                <div class="campo-chat"><label><i class="fas fa-envelope"></i> Seu e-mail *</label><input type="email" id="clienteEmail" required></div>
+                <div class="campo-chat"><label><i class="fab fa-whatsapp"></i> WhatsApp (opcional)</label><input type="tel" id="clienteTelefone"></div>
+                <div class="campo-chat"><label><i class="fas fa-comment"></i> Mensagem inicial (opcional)</label><textarea id="mensagemInicial" rows="2" placeholder="Digite sua dúvida ou clique em um assunto acima..."></textarea></div>
+                <button type="button" class="btn-chat" id="btnIniciar"><i class="fas fa-paper-plane"></i> Iniciar Conversa</button>
+                <div class="separador"><span>ou</span></div>
+                <button type="button" class="btn-chat btn-atendente" id="btnAtendenteDireto"><i class="fas fa-user-headset"></i> Falar com Atendente Humano</button>
+            </div>
+        </div>
+
+        <div id="chatAtivo" style="display: none;" class="chat-container">
+            <div class="chat-header">
+                <i class="fas fa-comments"></i>
+                <h3 id="chatClienteNome">Carregando...</h3>
+                <p id="chatStatus" style="font-size: 0.8rem;">💚 Assistente virtual ativo</p>
+            </div>
+            <div class="chat-messages" id="chatMessages"><div class="message admin"><div class="message-bubble">👋 Olá! Seja bem-vindo(a) à Ótica Valentim!<br><br>Como posso ajudar você hoje?</div><div class="message-time">Agora</div></div></div>
+            <div class="chat-input-area"><input type="text" id="mensagemInput" placeholder="Digite sua mensagem..."><button class="btn-chat" id="btnEnviarMsg">Enviar</button></div>
+            <div class="quick-replies" id="quickReplies"></div>
+            <button class="btn-chat btn-atendente" id="btnChamarAtendente" style="margin: 10px 15px; width: calc(100% - 30px);"><i class="fas fa-user-headset"></i> Falar com Atendente Humano</button>
+            <button class="btn-chat btn-encerrar" id="btnEncerrarChat" style="margin: 0 15px 15px; width: calc(100% - 30px);"><i class="fas fa-times-circle"></i> Encerrar Conversa</button>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="container"><div class="footer-grid"><div><h4>🤎 Ótica Valentim</h4><p>Rua R. Teixeira de Gouvéa, 641<br>Macaé - RJ</p><p>(22) 2762-3007</p></div><div><h4>Links</h4><ul><li><a href="/index.html">Início</a></li><li><a href="/produtos.html">Produtos</a></li><li><a href="/cadastro.html">Cadastro</a></li><li><a href="/chat.html">Chat</a></li><li><a href="/contato.html">Contato</a></li></ul></div><div><h4>Pagamento</h4><i class="fab fa-cc-visa"></i> <i class="fab fa-cc-mastercard"></i> <i class="fab fa-paypal"></i> <i class="fas fa-qrcode"></i><p>Até 10x sem juros</p></div></div><div class="copyright"><p>&copy; <span id="currentYear"></span> Ótica Valentim - Todos os direitos reservados</p></div></div>
+</footer>
+
+<script>
+    let conversaId = null, pollingInterval = null, conversaEncerrada = false;
+
+    const chatMessagesDiv = document.getElementById('chatMessages');
+    const msgInput = document.getElementById('mensagemInput');
+    const btnEnviar = document.getElementById('btnEnviarMsg');
+    const btnAtendente = document.getElementById('btnChamarAtendente');
+    const btnEncerrar = document.getElementById('btnEncerrarChat');
+
+    function escapeHtml(text) { if (!text) return ''; const div = document.createElement('div'); div.textContent = text; return div.innerHTML; }
+    function mostrarDigitando() { const typing = document.createElement('div'); typing.id = 'typingIndicator'; typing.className = 'message admin'; typing.innerHTML = `<div class="typing-indicator"><span></span><span></span><span></span></div>`; chatMessagesDiv.appendChild(typing); chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight; }
+    function esconderDigitando() { const ind = document.getElementById('typingIndicator'); if (ind) ind.remove(); }
+    function adicionarQuickReplies(sugestoes) { const container = document.getElementById('quickReplies'); if (!container) return; container.innerHTML = sugestoes.map(s => `<span class="quick-reply" data-text="${s}">${s}</span>`).join(''); document.querySelectorAll('.quick-reply').forEach(el => el.addEventListener('click', () => { msgInput.value = el.getAttribute('data-text'); enviarMensagem(); })); }
+
+    async function carregarMensagens() {
+        if (!conversaId) return;
+        try {
+            const res = await fetch(`/api/chat/mensagens/${conversaId}`);
+            const msgs = await res.json();
+            if (!msgs.length) return;
+            const ultima = msgs[msgs.length-1];
+            if (ultima.remetente === 'sistema' && ultima.mensagem.includes('encerrada')) {
+                conversaEncerrada = true;
+                document.getElementById('chatStatus').innerHTML = '🔒 Conversa encerrada';
+                msgInput.disabled = true; btnEnviar.disabled = true; btnAtendente.style.display = 'none'; btnEncerrar.style.display = 'none';
+                if (pollingInterval) clearInterval(pollingInterval);
+            }
+            chatMessagesDiv.innerHTML = msgs.map(msg => `<div class="message ${msg.remetente === 'cliente' ? 'cliente' : 'admin'}"><div class="message-bubble">${escapeHtml(msg.mensagem)}${msg.remetente === 'admin' && !msg.mensagem.includes('encerrada') ? '<span class="bot-badge">Bot</span>' : ''}</div><div class="message-time">${new Date(msg.created_at).toLocaleTimeString()}</div></div>`).join('');
+            chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight;
+            if (ultima.remetente === 'admin' && !conversaEncerrada) adicionarQuickReplies(['Exames', 'Preços', 'Entrega', 'Produtos', 'Cupom']);
+        } catch(err) { console.error(err); }
+    }
+
+    async function enviarMensagem() {
+        const mensagem = msgInput.value.trim();
+        if (!mensagem || conversaEncerrada) return;
+        msgInput.value = ''; msgInput.disabled = true; btnEnviar.disabled = true;
+        try {
+            const res = await fetch('/api/chat/enviar-mensagem', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ conversa_id: conversaId, mensagem, remetente: 'cliente' }) });
+            if (res.ok) { await carregarMensagens(); mostrarDigitando(); setTimeout(() => esconderDigitando(), 2000); }
+            else alert('Erro ao enviar mensagem');
+        } catch(err) { alert('Erro de conexão'); }
+        finally { msgInput.disabled = false; btnEnviar.disabled = false; msgInput.focus(); }
+    }
+
+    async function chamarAtendente() { if (conversaEncerrada) return alert('Conversa encerrada.'); msgInput.value = 'Gostaria de falar com um atendente humano.'; await enviarMensagem(); }
+    async function encerrarConversa() { if (!conversaId) return; if (confirm('Deseja encerrar?')) { await fetch(`/api/chat/fechar-conversa/${conversaId}`, { method: 'POST' }); conversaEncerrada = true; localStorage.removeItem('chat_conversa_id'); if(pollingInterval) clearInterval(pollingInterval); document.getElementById('chatAtivo').style.display = 'none'; document.getElementById('chatInicial').style.display = 'block'; alert('Conversa encerrada.'); } }
+    function iniciarPolling() { if(pollingInterval) clearInterval(pollingInterval); pollingInterval = setInterval(() => { if(conversaId && !conversaEncerrada) carregarMensagens(); }, 5000); }
+
+    async function carregarDadosConversa() {
+        if(!conversaId) return;
+        try {
+            const res = await fetch(`/api/chat/conversa/${conversaId}`);
+            const data = await res.json();
+            document.getElementById('chatClienteNome').innerHTML = `<i class="fas fa-user"></i> ${escapeHtml(data.cliente_nome)}`;
+        } catch(err) { console.error('Erro ao carregar nome', err); }
+    }
+
+    async function iniciarConversaComAssunto(assunto) {
+        const nome = document.getElementById('clienteNome').value.trim(), email = document.getElementById('clienteEmail').value.trim(), telefone = document.getElementById('clienteTelefone').value.trim(), mensagemExtra = document.getElementById('mensagemInicial').value.trim();
+        if(!nome || !email) { alert('Preencha nome e e-mail.'); return false; }
+        const mensagem = mensagemExtra || `Gostaria de informações sobre ${assunto}`;
+        try {
+            const res = await fetch('/api/chat/nova-conversa', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ nome, email, telefone, mensagem }) });
+            const data = await res.json();
+            if(data.success && data.conversa_id) {
+                conversaId = data.conversa_id; conversaEncerrada = false;
+                localStorage.setItem('chat_conversa_id', conversaId);
+                document.getElementById('chatInicial').style.display = 'none'; document.getElementById('chatAtivo').style.display = 'block';
+                await carregarDadosConversa();
+                await carregarMensagens(); iniciarPolling(); return true;
+            } else { alert('Erro: ' + (data.error || 'Não foi possível iniciar a conversa.')); return false; }
+        } catch(err) { alert('Erro de conexão com o servidor.'); return false; }
+    }
+
+    document.getElementById('btnIniciar').addEventListener('click', async () => { const selected = document.querySelector('.assunto-card.selected'); if(!selected) { alert('Clique em um assunto acima.'); return; } await iniciarConversaComAssunto(selected.getAttribute('data-assunto')); });
+    document.getElementById('btnAtendenteDireto').addEventListener('click', async () => { const nome = document.getElementById('clienteNome').value.trim(), email = document.getElementById('clienteEmail').value.trim(); if(!nome || !email) { alert('Preencha nome e e-mail primeiro.'); return; } await iniciarConversaComAssunto('menuPrincipal'); setTimeout(() => chamarAtendente(), 2000); });
+    btnEnviar.addEventListener('click', enviarMensagem); msgInput.addEventListener('keypress', e => { if(e.key === 'Enter') enviarMensagem(); });
+    btnAtendente.addEventListener('click', chamarAtendente); btnEncerrar.addEventListener('click', encerrarConversa);
+
+    const savedId = localStorage.getItem('chat_conversa_id');
+    if(savedId) { conversaId = parseInt(savedId); document.getElementById('chatInicial').style.display = 'none'; document.getElementById('chatAtivo').style.display = 'block'; carregarDadosConversa(); carregarMensagens(); iniciarPolling(); }
+
+    document.querySelectorAll('.assunto-card').forEach(card => { card.addEventListener('click', function() { document.querySelectorAll('.assunto-card').forEach(c => c.classList.remove('selected')); this.classList.add('selected'); }); });
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

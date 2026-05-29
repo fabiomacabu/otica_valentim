@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atendimento | òtica Valentim</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- CSS Principal -->
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <style>
+        .atendimento-hero {
+            background: linear-gradient(135deg, var(--kessy-primary), var(--kessy-primary-dark));
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+        .atendimento-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            padding: 60px 0;
+        }
+        .atendimento-card {
+            background: var(--kessy-white);
+            border-radius: 20px;
+            padding: 35px 30px;
+            box-shadow: var(--kessy-shadow);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .atendimento-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--kessy-shadow-hover);
+        }
+        
+        /* Ícones com cores de contraste */
+        .atendimento-card i {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        .atendimento-card i.fa-whatsapp {
+            color: #25D366;
+        }
+        .atendimento-card i.fa-phone-alt {
+            color: #2196F3;
+        }
+        .atendimento-card i.fa-envelope {
+            color: #EA4335;
+        }
+        .atendimento-card i.fa-comments {
+            color: #6D4C41;
+        }
+        
+        .atendimento-card h3 {
+            color: var(--kessy-text);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        .atendimento-card p {
+            color: var(--kessy-text-light);
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        
+        /* Botões com tom de marrom mais claro */
+        .btn-atendimento {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #6D4C41;  /* Marrom mais claro */
+            color: white;
+            padding: 12px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        .btn-atendimento:hover {
+            background: #8D6E63;  /* Marrom ainda mais claro no hover */
+            transform: scale(1.03);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        .btn-atendimento i {
+            font-size: 1rem;
+            margin-bottom: 0;
+            color: white;
+        }
+        
+        /* Botão alternativo (secundário) */
+        .btn-atendimento-secondary {
+            background: #A1887F;
+        }
+        .btn-atendimento-secondary:hover {
+            background: #BCAAA4;
+        }
+        
+        .horarios-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .horarios-table td {
+            padding: 12px;
+            border-bottom: 1px solid var(--kessy-border);
+        }
+        .horarios-table td:first-child {
+            font-weight: 600;
+            color: var(--kessy-primary);
+        }
+        .unidades-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 30px;
+        }
+        .unidade-card {
+            background: var(--kessy-white);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: var(--kessy-shadow);
+        }
+        .unidade-card h4 {
+            color: var(--kessy-primary);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        .unidade-card i {
+            color: #6D4C41;
+            width: 25px;
+        }
+        .faq-item {
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--kessy-border);
+            padding-bottom: 15px;
+        }
+        .faq-question {
+            font-weight: 600;
+            color: var(--kessy-text);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+        }
+        .faq-question:hover {
+            color: #6D4C41;
+        }
+        .faq-question i {
+            transition: transform 0.3s;
+            color: #6D4C41;
+        }
+        .faq-answer {
+            display: none;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            color: var(--kessy-text-light);
+            line-height: 1.6;
+        }
+        .faq-answer.active {
+            display: block;
+        }
+        
+        /* Estilo dos cards de serviço */
+        .service-card {
+            background: var(--kessy-white);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: var(--kessy-shadow);
+            transition: transform 0.3s;
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+        .service-card i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        .service-card i.fa-glasses { color: #4E342E; }
+        .service-card i.fa-microscope { color: #2196F3; }
+        .service-card i.fa-tools { color: #FF9800; }
+        .service-card i.fa-exchange-alt { color: #4CAF50; }
+        .service-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--kessy-text);
+        }
+        .service-card p {
+            color: var(--kessy-text-light);
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .atendimento-grid, .unidades-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Top Bar e Header -->
+<div class="top-bar-kessy">
+    <div class="container">
+        <div class="top-bar-links">
+            <a href="/atendimento.html"><i class="fas fa-headset"></i> Atendimento</a>
+            <a href="/sobre.html"><i class="fas fa-info-circle"></i> Sobre a òtica Valentim</a>
+        </div>
+        <div class="top-bar-icons">
+            
+            
+        </div>
+    </div>
+</div>
+
+<header class="header-kessy">
+    <div class="container">
+        <div class="logo-kessy">
+            <a href="/index.html">
+                <img src="/img/logo/logo.jpg" alt="òtica Valentim" onerror="this.src='https://placehold.co/150x50/4E342E/white?text=Ótica+Macaé'">
+            </a>
+        </div>
+        <nav class="nav-kessy" id="mainNavKessy">
+            <ul class="menu-principal">
+                <li class="menu-item-has-children"><a href="/produtos.html?categoria=grau">Óculos de Grau</a>
+                    <div class="megamenu-kessy"><div class="megamenu-container"><div class="megamenu-coluna"><h4>Por Formato</h4><ul><li><a href="#">Redondo</a></li><li><a href="#">Quadrado</a></li></ul></div></div></div>
+                </li>
+                <li class="menu-item-has-children"><a href="/produtos.html?categoria=sol"> Óculos de Sol</a></li>
+                <li><a href="/produtos.html?categoria=lentes">Lentes de Contato</a></li>
+                <li><a href="/protecao.html">Óculos de Proteção</a></li>
+                <li><a href="/chat.html">Chat Online</a></li>
+                <li><a href="/contato.html">Contato</a></li>
+            </ul>
+        </nav>
+        <div class="whatsapp-kessy">
+            <a href="https://wa.me/5522999416737" target="_blank"><i class="fab fa-whatsapp"></i> <span>Precisa de Ajuda?</span></a>
+        </div>
+        <div class="hamburger-kessy" id="hamburgerKessy"><span></span><span></span><span></span></div>
+    </div>
+</header>
+<div class="nav-overlay-kessy" id="navOverlayKessy"></div>
+
+<a href="https://wa.me/5522999416737" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+<div class="benefits-bar">
+    <div class="container">
+        <i class="fas fa-truck"></i> Frete grátis acima de R$ 299,00
+        <span>|</span>
+        <i class="fas fa-credit-card"></i> Parcele em até 10x sem juros
+        <span>|</span>
+        <i class="fas fa-shield-alt"></i> Produtos 100% originais
+    </div>
+</div>
+
+<main>
+    <section class="atendimento-hero">
+        <div class="container">
+            <h1><i class="fas fa-headset"></i> Canais de Atendimento</h1>
+            <p>Estamos prontos para atender você da melhor forma possível</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="atendimento-grid">
+            <div class="atendimento-card">
+                <i class="fab fa-whatsapp"></i>
+                <h3>WhatsApp</h3>
+                <p>Atendimento rápido e direto. Tire suas dúvidas, faça pedidos e agende serviços.</p>
+                <a href="https://wa.me/5522999416737" class="btn-atendimento" target="_blank">
+                    <i class="fab fa-whatsapp"></i> (22) 99941-6737
+                </a>
+            </div>
+            <div class="atendimento-card">
+                <i class="fas fa-phone-alt"></i>
+                <h3>Telefone</h3>
+                <p>Fale com nossa equipe diretamente por telefone durante o horário comercial.</p>
+                <a href="tel:552227623007" class="btn-atendimento">
+                    <i class="fas fa-phone-alt"></i> (22) 2762-3007
+                </a>
+            </div>
+            <div class="atendimento-card">
+                <i class="fas fa-envelope"></i>
+                <h3>E-mail</h3>
+                <p>Envie sua mensagem e responderemos em até 24h úteis.</p>
+                <a href="mailto:contato@oticamacae.com.br" class="btn-atendimento">
+                    <i class="fas fa-envelope"></i> contato@oticavalentim.com.br
+                </a>
+            </div>
+            <div class="atendimento-card">
+                <i class="fas fa-comments"></i>
+                <h3>Chat Online</h3>
+                <p>Atendimento instantâneo pelo nosso chat no site.</p>
+                <a href="/chat.html" class="btn-atendimento">
+                    <i class="fas fa-comments"></i> Iniciar Chat
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2 class="section-title">📍 Nossas Unidades</h2>
+        <div class="unidades-grid">
+            <div class="unidade-card">
+                <h4><i class="fas fa-store"></i> Loja Centro</h4>
+                <p><i class="fas fa-map-marker-alt"></i> Rua R. Teixeira de Gouvéa, 641 - Centro, Macaé/RJ</p>
+                <p><i class="fas fa-clock"></i> Segunda a Sexta: 8:30h às 18:30h</p>
+                <p><i class="fas fa-clock"></i> Sábado: 9:00h às 14:00h</p>
+                <p><i class="fas fa-phone"></i> (22) 2762-3007</p>
+            </div>
+            <div class="unidade-card">
+                <h4><i class="fas fa-store"></i> Loja Cavaleiros</h4>
+                <p><i class="fas fa-map-marker-alt"></i> Av. Nossa Sra. da Glória, 2469 - L2, P. Aeroporto, Macaé - RJ, CEP 27920-360</p>
+                <p><i class="fas fa-clock"></i> Segunda a Sexta: 9:00h às 19:00h</p>
+                <p><i class="fas fa-clock"></i> Sábado: 9:00h às 13:00h</p>
+                <p><i class="fas fa-phone"></i>(22) 2020-4721</p>
+            </div>
+        </div>
+    </div>
+<br>
+<br>
+    <div class="container">
+        <h2 class="section-title">📋 Serviços Oferecidos</h2>
+        <div class="atendimento-grid" style="margin-top: 0;">
+            <div class="service-card">
+                <i class="fas fa-glasses"></i>
+                <h3>Exame de Vista</h3>
+                <p>Agendamento com optometristas especializados.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-microscope"></i>
+                <h3>Montagem de Lentes</h3>
+                <p>Lentes prontas em até 24h.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-tools"></i>
+                <h3>Ajustes e Reparos</h3>
+                <p>Manutenção gratuita de armações.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-exchange-alt"></i>
+                <h3>Troca de Lentes</h3>
+                <p>Substitua suas lentes na mesma armação.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" style="margin-bottom: 60px;">
+        <h2 class="section-title">❓ Perguntas Frequentes</h2>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                Como faço para agendar um exame de vista? <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">Você pode agendar pelo WhatsApp (22) 99941-6737, telefone (22) 2762-3007 ou diretamente em uma de nossas lojas.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                Qual o prazo para montagem das lentes? <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">O prazo médio é de 24h para lentes simples e até 5 dias úteis para lentes especiais (progressivas, fotossensíveis).</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                Oferecem garantia dos produtos? <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">Sim, garantia de 12 meses contra defeitos de fabricação e 7 dias para troca por insatisfação.</div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div>
+                <h4>òtica Valentim</h4>
+                <p>Rua R. Teixeira de Gouvéa, 641 - Centro, Macaé/RJ</p>
+                <p>(22) 2762-3007</p>
+            </div>
+            <div>
+                <h4>Links</h4>
+                <ul>
+                    <li><a href="/sobre.html">Sobre</a></li>
+                    <li><a href="/atendimento.html">Atendimento</a></li>
+                    <li><a href="/contato.html">Contato</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Pagamento</h4>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <i class="fab fa-cc-visa"></i>
+                    <i class="fab fa-cc-mastercard"></i>
+                    <i class="fab fa-paypal"></i>
+                    <i class="fas fa-qrcode"></i>
+                </div>
+                <p>Até 10x sem juros</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; <span id="currentYear"></span> òtica Valentim - Todos os direitos reservados</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+function toggleFaq(element) {
+    const answer = element.nextElementSibling;
+    answer.classList.toggle('active');
+    const icon = element.querySelector('i');
+    if (answer.classList.contains('active')) {
+        icon.style.transform = 'rotate(180deg)';
+    } else {
+        icon.style.transform = 'rotate(0deg)';
+    }
+}
+
+// Menu script
+(function() {
+    const hamburger = document.getElementById('hamburgerKessy');
+    const nav = document.getElementById('mainNavKessy');
+    const overlay = document.getElementById('navOverlayKessy');
+    if (!hamburger) return;
+    function toggleMenu() { 
+        hamburger.classList.toggle('active'); 
+        nav.classList.toggle('active'); 
+        overlay.classList.toggle('active'); 
+        document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : ''; 
+    }
+    function closeMenu() { 
+        hamburger.classList.remove('active'); 
+        nav.classList.remove('active'); 
+        overlay.classList.remove('active'); 
+        document.body.style.overflow = ''; 
+    }
+    hamburger.addEventListener('click', toggleMenu);
+    overlay.addEventListener('click', closeMenu);
+    
+    // Ajuste para dropdowns mobile
+    function setupMobileDropdowns() {
+        if (window.innerWidth <= 992) {
+            document.querySelectorAll('.menu-item-has-children > a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    this.parentElement.classList.toggle('active');
+                });
+            });
+        }
+    }
+    setupMobileDropdowns();
+})();
+document.getElementById('currentYear').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

@@ -1,0 +1,1040 @@
+/* ========== IMPORTAÇÃO DE FONTES ========== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* ========== VARIÁVEIS - PALETA PRETA / BRANCO / MARROM (Ótica Macaé) ========== */
+:root {
+    --kessy-white: #ffffff;
+    --kessy-bg: #f5f2ef;
+    --kessy-text: #161414;
+    --kessy-text-light: #0a0a0a;
+    --kessy-primary: #000000;      /* fundo do header – preto */
+    --kessy-primary-dark: #111111;  /* top bar – preto suave */
+    --kessy-primary-light: #0f0f0e; /* marrom médio para destaques */
+    --kessy-accent: #D7CCC8;        /* marrom claro para hovers */
+    --kessy-border: #d4c5bc;
+    --kessy-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+    --kessy-shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --kessy-shadow-hover: 0 15px 30px -12px rgba(0, 0, 0, 0.15);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', 'Poppins', sans-serif;
+    background: radial-gradient(circle at top left, #faf3ed 0%, transparent 25%),
+                radial-gradient(circle at bottom right, #f0e7e0 0%, transparent 25%),
+                #fefbf9;
+    color: var(--kessy-text);
+    line-height: 1.5;
+}
+
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* ========== TOP BAR (escuro, letras claras) ========== */
+.top-bar-kessy {
+    background: var(--kessy-primary-dark); /* #111111 */
+    border-bottom: 1px solid #222222;
+    padding: 10px 0;
+    font-size: 0.8rem;
+}
+
+.top-bar-kessy .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.top-bar-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.top-bar-links a, .top-bar-icons a {
+    color: #dddddd;
+    text-decoration: none;
+    margin-right: 24px;
+    transition: color 0.2s;
+    font-size: 0.8rem;
+}
+
+.top-bar-links a:last-child, .top-bar-icons a:last-child {
+    margin-right: 0;
+}
+
+.top-bar-links a:hover, .top-bar-icons a:hover {
+    color: #ffffff;
+}
+
+.top-bar-links a i, .top-bar-icons a i {
+    margin-right: 6px;
+    font-size: 0.8rem;
+}
+
+.top-bar-icons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.cart-icon {
+    position: relative;
+}
+
+.cart-count {
+    position: absolute;
+    top: -8px;
+    right: -12px;
+    background: var(--kessy-primary-light);
+    color: white;
+    font-size: 0.65rem;
+    font-weight: bold;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ========== HEADER PRINCIPAL (fundo preto, letras brancas) ========== */
+.header-kessy {
+    background: var(--kessy-primary); /* #000000 */
+    box-shadow: 0 2px 15px rgba(0,0,0,0.2);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-kessy .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 70px;
+}
+
+/* Logo – pode precisar de imagem clara; se a logo for escura, adicione um filtro ou troque a imagem */
+.logo-kessy a {
+    display: block;
+}
+
+.logo-kessy img {
+    height: 96px;
+    width: auto;
+    border-radius: 12px;
+    /* Se a logo original for escura, descomente a linha abaixo para inverter a cor:
+    filter: brightness(0) invert(1); */
+}
+
+/* ========== MENU DE NAVEGAÇÃO DESKTOP (texto branco) ========== */
+.nav-kessy {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-kessy .menu-principal {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 4px;
+}
+
+.nav-kessy .menu-principal > li {
+    position: static;
+}
+
+.nav-kessy .menu-principal > li > a {
+    display: block;
+    padding: 10px 20px;
+    color: #ffffff;  /* texto branco */
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    border-radius: 40px;
+    transition: all 0.2s;
+}
+
+.nav-kessy .menu-principal > li > a:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+}
+
+/* ========== MEGAMENU (fundo branco, texto escuro para contraste) ========== */
+.megamenu-kessy {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--kessy-white);
+    box-shadow: var(--kessy-shadow-lg);
+    border-top: 1px solid var(--kessy-border);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.2s ease;
+    z-index: 99;
+}
+
+.menu-item-has-children:hover .megamenu-kessy {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.megamenu-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 40px 24px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 30px;
+}
+
+.megamenu-coluna h4 {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--kessy-primary); /* preto */
+    margin-bottom: 16px;
+}
+
+.megamenu-coluna ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.megamenu-coluna ul li {
+    margin-bottom: 10px;
+}
+
+.megamenu-coluna ul li a {
+    color: var(--kessy-text);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+}
+
+.megamenu-coluna ul li a:hover {
+    color: var(--kessy-primary-light);
+}
+
+.link-ver-todos {
+    display: inline-block;
+    margin-top: 15px;
+    color: var(--kessy-primary-light);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.link-ver-todos i {
+    transition: transform 0.2s;
+}
+
+.link-ver-todos:hover i {
+    transform: translateX(4px);
+}
+
+/* ========== BOTÃO WHATSAPP NO HEADER ========== */
+.whatsapp-kessy a {
+    background: #25D366;
+    color: white;
+    padding: 8px 18px;
+    border-radius: 40px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+}
+
+.whatsapp-kessy a:hover {
+    background: #128C7E;
+    transform: scale(1.02);
+}
+
+/* ========== HAMBÚRGUER (MOBILE) – ícone escuro no fundo preto ========== */
+.hamburger-kessy {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 8px;
+    z-index: 101;
+}
+
+.hamburger-kessy span {
+    width: 24px;
+    height: 2px;
+    background: #ffffff;  /* branco */
+    margin: 3px 0;
+    transition: 0.3s;
+}
+
+.hamburger-kessy.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger-kessy.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-kessy.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+.nav-overlay-kessy {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 98;
+}
+
+.nav-overlay-kessy.active {
+    display: block;
+}
+
+/* ========== WHATSAPP FLUTUANTE ========== */
+.whatsapp-float {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    box-shadow: var(--kessy-shadow-lg);
+    z-index: 997;
+    transition: all 0.3s;
+    text-decoration: none;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1);
+    background: #128C7E;
+}
+
+/* ========== BOTÕES GERAIS ========== */
+.btn {
+    display: inline-block;
+    background: var(--kessy-primary-light);
+    color: white;
+    padding: 12px 28px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.btn:hover {
+    background: var(--kessy-text);
+    transform: translateY(-3px);
+    box-shadow: var(--kessy-shadow-hover);
+}
+
+/* ========== BANNER SWIPER (imagens 1086x361 ocupando 100% do espaço) ========== */
+.banner-swiper {
+    width: 100%;
+    overflow: hidden;
+}
+
+.banner-swiper-container {
+    width: 100%;
+    aspect-ratio: 1086 / 361;   /* mantém a proporção exata das suas imagens */
+}
+
+.banner-slide {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* Navegação e paginação do Swiper */
+.swiper-button-next,
+.swiper-button-prev {
+    color: white;
+    background: rgba(0, 0, 0, 0.4);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+    font-size: 1rem;
+}
+
+.swiper-pagination-bullet {
+    background: white;
+    opacity: 0.7;
+}
+
+.swiper-pagination-bullet-active {
+    background: var(--kessy-primary-light) !important;
+}
+
+/* ========== SEÇÕES GERAIS ========== */
+section {
+    padding: 60px 0;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 40px;
+    color: var(--kessy-text);
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: var(--kessy-primary-light);
+    border-radius: 3px;
+}
+
+/* ========== CARDS DE PRODUTOS ========== */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.product-card {
+    background: var(--kessy-white);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--kessy-shadow-hover);
+}
+
+.product-image-container {
+    background: #f5f5f5;
+    padding: 20px;
+    text-align: center;
+}
+
+.product-img {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+}
+
+.product-card h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 15px 15px 5px;
+    color: var(--kessy-text);
+}
+
+.product-price-wrapper {
+    margin: 10px 15px;
+}
+
+.product-price-current {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--kessy-primary-light);
+}
+
+.product-installment {
+    font-size: 0.75rem;
+    color: var(--kessy-text-light);
+}
+
+.product-price-pix {
+    font-size: 0.8rem;
+    color: #25D366;
+    font-weight: 500;
+}
+
+.product-buttons {
+    margin: 0 15px 15px;
+}
+
+.product-buttons .btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 0.85rem;
+    text-align: center;
+}
+
+/* ========== MARCAS ========== */
+.marcas-section {
+    background: var(--kessy-white);
+    padding: 60px 0;
+}
+
+.marcas-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 30px;
+}
+
+.marca-card {
+    text-align: center;
+    width: 100px;
+    transition: transform 0.3s;
+}
+
+.marca-card:hover {
+    transform: translateY(-5px);
+}
+
+.marca-logo {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+    margin-bottom: 10px;
+}
+
+.marca-card h4 {
+    font-size: 0.85rem;
+    color: var(--kessy-text-light);
+}
+
+/* ========== SELOS DE CONFIABILIDADE ========== */
+.selos-grid {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+    background: var(--kessy-white);
+    padding: 40px 30px;
+    border-radius: 30px;
+    margin: 40px 0;
+    box-shadow: var(--kessy-shadow);
+}
+
+.selo-item-simples {
+    text-align: center;
+    flex: 1;
+    min-width: 120px;
+}
+
+.selo-item-simples i {
+    font-size: 2rem;
+    color: var(--kessy-primary-light);
+    margin-bottom: 10px;
+}
+
+.selo-item-simples h4 {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    color: var(--kessy-text);
+}
+
+.selo-item-simples p {
+    font-size: 0.75rem;
+    color: var(--kessy-text-light);
+}
+
+/* ========== DESTAQUE CADASTRO ========== */
+.destaque-cadastro {
+    background: linear-gradient(135deg, var(--kessy-primary), var(--kessy-primary-dark));
+    border-radius: 40px;
+    padding: 50px;
+    margin: 40px 0;
+    text-align: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.destaque-cadastro h3 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+}
+
+.destaque-cadastro p {
+    font-size: 1rem;
+    margin-bottom: 25px;
+    opacity: 0.9;
+}
+
+.destaque-cadastro .btn {
+    background: white;
+    color: var(--kessy-primary);
+    font-size: 1rem;
+    padding: 14px 40px;
+}
+
+.destaque-cadastro .btn:hover {
+    background: var(--kessy-accent);
+    color: var(--kessy-primary-dark);
+}
+
+.badge-desconto {
+    display: inline-block;
+    background: #FFC107;
+    color: var(--kessy-primary-dark);
+    padding: 5px 15px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+/* ========== FOOTER ========== */
+footer {
+    background: #0e0d0d;
+    color: #d0c0b8;
+    padding: 50px 0 30px;
+    margin-top: 60px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer-grid h4 {
+    margin-bottom: 20px;
+    color: #aaa;
+    font-size: 1.1rem;
+}
+
+.footer-grid ul {
+    list-style: none;
+}
+
+.footer-grid li {
+    margin-bottom: 10px;
+}
+
+.footer-grid a {
+    text-decoration: none;
+    color: #ccc;
+    font-size: 0.85rem;
+    transition: color 0.3s;
+}
+
+.footer-grid a:hover {
+    color: #ffffff;
+}
+
+.social-icons a {
+    color: #ccc;
+    margin-right: 15px;
+    font-size: 1.3rem;
+    transition: all 0.3s;
+    display: inline-block;
+}
+
+.social-icons a:hover {
+    color: #ffffff;
+    transform: translateY(-3px);
+}
+
+.copyright {
+    text-align: center;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.8rem;
+}
+
+/* ========== LOADING ========== */
+.loading {
+    text-align: center;
+    padding: 40px;
+    font-size: 1.1rem;
+    color: var(--kessy-text-light);
+}
+
+/* ========== RESPONSIVIDADE GERAL ========== */
+@media (max-width: 992px) {
+    .top-bar-kessy .container {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .top-bar-links {
+        justify-content: center;
+    }
+    
+    .top-bar-icons {
+        justify-content: center;
+    }
+    
+    .whatsapp-kessy {
+        display: none;
+    }
+    
+    .hamburger-kessy {
+        display: flex;
+    }
+    
+    .nav-kessy {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 320px;
+        height: 100%;
+        background: var(--kessy-white);
+        box-shadow: -2px 0 20px rgba(0,0,0,0.1);
+        z-index: 99;
+        transition: right 0.3s ease;
+        overflow-y: auto;
+        padding: 80px 20px 30px;
+        display: block;
+    }
+    
+    .nav-kessy.active {
+        right: 0;
+    }
+    
+    .nav-kessy .menu-principal {
+        flex-direction: column;
+        gap: 0;
+    }
+    
+    .nav-kessy .menu-principal > li {
+        border-bottom: 1px solid var(--kessy-border);
+    }
+    
+    .nav-kessy .menu-principal > li > a {
+        padding: 15px 0;
+        border-radius: 0;
+        color: var(--kessy-text);  /* em mobile, texto escuro sobre fundo branco */
+    }
+    
+    .megamenu-kessy {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        box-shadow: none;
+        border: none;
+        display: none;
+        padding-left: 20px;
+    }
+    
+    .menu-item-has-children.active .megamenu-kessy {
+        display: block;
+    }
+    
+    .megamenu-container {
+        grid-template-columns: 1fr;
+        padding: 20px 0;
+        gap: 20px;
+    }
+    
+    .megamenu-coluna h4 {
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .banner-swiper-container {
+        height: auto;  /* permite manter a proporção pelo aspect-ratio */
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+    }
+    
+    section {
+        padding: 40px 0;
+    }
+    
+    .selos-grid {
+        flex-direction: column;
+        align-items: center;
+        gap: 25px;
+    }
+    
+    .destaque-cadastro {
+        padding: 30px 20px;
+    }
+    
+    .destaque-cadastro h3 {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .banner-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+    }
+    
+    .btn-banner {
+        margin-right: 0;
+        width: 80%;
+    }
+}
+
+/* ========== BADGES PARA PRODUTOS ========== */
+.badge-categoria {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 50px;
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+.badge-masculino { background: #2196F3; color: white; }
+.badge-feminino { background: #E91E63; color: white; }
+.badge-infantil { background: #4CAF50; color: white; }
+.badge-unissex { background: #9E9E9E; color: white; }
+
+.marca-nome {
+    margin: 5px 15px;
+    font-size: 0.8rem;
+    color: var(--kessy-text-light);
+}
+
+/* ========== FILTROS ========== */
+.filtros-container {
+    background: var(--kessy-white);
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: var(--kessy-shadow);
+}
+
+.filtros-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.filtro-group {
+    flex: 1;
+    min-width: 180px;
+}
+
+.filtro-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: var(--kessy-text);
+}
+
+.filtro-group select {
+    width: 100%;
+    padding: 10px 15px;
+    border-radius: 50px;
+    border: 1px solid var(--kessy-border);
+    font-family: 'Inter', sans-serif;
+    background: white;
+}
+
+/* ========== SEÇÃO DE AVALIAÇÕES GOOGLE ========== */
+.google-reviews-section {
+    background: linear-gradient(135deg, var(--kessy-bg), #ffffff);
+    padding: 60px 0;
+}
+
+.reviews-subtitle {
+    text-align: center;
+    color: var(--kessy-text-light);
+    margin-bottom: 40px;
+}
+
+.google-rating-summary {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 20px;
+    background: var(--kessy-white);
+    border-radius: 20px;
+    box-shadow: var(--kessy-shadow);
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.rating-stars-large .stars {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.rating-stars-large .stars i {
+    font-size: 1.8rem;
+    color: #FBBC05;
+}
+
+.rating-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--kessy-primary-light);
+}
+
+.rating-count {
+    font-size: 0.8rem;
+    color: var(--kessy-text-light);
+}
+
+.google-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #f1f3f4;
+    padding: 8px 16px;
+    border-radius: 50px;
+    margin-top: 10px;
+}
+
+.google-badge img {
+    width: 20px;
+}
+
+.google-badge span {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #5f6368;
+}
+
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin: 30px 0;
+}
+
+.review-card {
+    background: var(--kessy-white);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: var(--kessy-shadow);
+    transition: transform 0.3s;
+}
+
+.review-card:hover {
+    transform: translateY(-5px);
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.review-avatar {
+    width: 50px;
+    height: 50px;
+    background: var(--kessy-primary-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.review-info h4 {
+    font-size: 1rem;
+    margin-bottom: 4px;
+    color: var(--kessy-text);
+}
+
+.review-stars i {
+    color: #FBBC05;
+    font-size: 0.8rem;
+    margin-right: 2px;
+}
+
+.review-date {
+    font-size: 0.7rem;
+    color: var(--kessy-text-light);
+}
+
+.review-text {
+    color: var(--kessy-text);
+    line-height: 1.5;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+}
+
+.review-source {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.7rem;
+    color: var(--kessy-text-light);
+}
+
+.review-source i {
+    color: #4285F4;
+}
+
+.btn-google-review {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #4285F4;
+    color: white;
+    padding: 12px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.btn-google-review:hover {
+    background: #3367d6;
+    transform: translateY(-2px);
+}
+
+.reviews-footer {
+    text-align: center;
+    margin-top: 30px;
+}
+
+@media (max-width: 768px) {
+    .reviews-grid {
+        grid-template-columns: 1fr;
+    }
+}

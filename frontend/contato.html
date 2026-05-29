@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contato | Ótica Valentim</title>
+    
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- CSS Principal -->
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <style>
+        /* Estilos específicos da página de contato */
+        .contact-page {
+            padding: 60px 0;
+        }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 40px 0;
+        }
+        .contact-info {
+            background: var(--kessy-white);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: var(--kessy-shadow);
+        }
+        .contact-info p {
+            margin: 15px 0;
+            color: var(--kessy-text);
+        }
+        .contact-info i {
+            width: 30px;
+            color: var(--kessy-primary);
+        }
+        .map {
+            margin-top: 20px;
+        }
+        .contato-whatsapp {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+        }
+        .btn-whatsapp-grande {
+            display: inline-block;
+            background: white;
+            color: #25D366;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: transform 0.3s;
+        }
+        .btn-whatsapp-grande:hover {
+            transform: translateY(-2px);
+        }
+        .comandos-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .comandos-row {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+        .comando-card {
+            background: var(--kessy-white);
+            border-radius: 20px;
+            padding: 15px;
+            text-align: center;
+            width: 100px;
+            cursor: pointer;
+            transition: transform 0.3s;
+            box-shadow: var(--kessy-shadow);
+        }
+        .comando-card:hover {
+            transform: translateY(-5px);
+        }
+        .comando-numero {
+            background: var(--kessy-primary);
+            color: white;
+            width: 35px;
+            height: 35px;
+            line-height: 35px;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            font-weight: bold;
+        }
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ========== TOP BAR - ESTILO KESSY ========== -->
+<div class="top-bar-kessy">
+    <div class="container">
+        <div class="top-bar-links">
+            <a href="/atendimento.html"><i class="fas fa-headset"></i> Atendimento</a>
+            <a href="/sobre.html"><i class="fas fa-info-circle"></i> Sobre a Ótica Valentim</a>
+        </div>
+        <div class="top-bar-icons">
+        
+            
+        </div>
+    </div>
+</div>
+
+<!-- ========== HEADER PRINCIPAL ========== -->
+<header class="header-kessy">
+    <div class="container">
+        <div class="logo-kessy">
+            <a href="/index.html">
+                <img src="/img/logo/logo.jpg" alt="Ótica Valentim" onerror="this.src='https://placehold.co/150x50/4E342E/white?text=Ótica+Macaé'">
+            </a>
+        </div>
+
+        <nav class="nav-kessy" id="mainNavKessy">
+            <ul class="menu-principal">
+                <li class="menu-item-has-children">
+                    <a href="/produtos.html?categoria=grau">Óculos de Grau</a>
+                    <div class="megamenu-kessy">
+                        <div class="megamenu-container">
+                            <div class="megamenu-coluna">
+                                <h4>Por Formato</h4>
+                                <ul>
+                                    <li><a href="/produtos.html?formato=redondo">Redondo</a></li>
+                                    <li><a href="/produtos.html?formato=quadrado">Quadrado</a></li>
+                                    <li><a href="/produtos.html?formato=retangular">Retangular</a></li>
+                                    <li><a href="/produtos.html?formato=gatinho">Gatinho</a></li>
+                                </ul>
+                            </div>
+                            <div class="megamenu-coluna">
+                                <h4>Por Gênero</h4>
+                                <ul>
+                                    <li><a href="/produtos.html?categoria=grau&sub=masculino">Masculino</a></li>
+                                    <li><a href="/produtos.html?categoria=grau&sub=feminino">Feminino</a></li>
+                                    <li><a href="/produtos.html?categoria=grau&sub=infantil">Infantil</a></li>
+                                </ul>
+                            </div>
+                            <div class="megamenu-coluna">
+                                <h4>Lentes Especiais</h4>
+                                <ul>
+                                    <li><a href="/produtos.html?lente=blue-light">Blue Light</a></li>
+                                    <li><a href="/produtos.html?lente=fotossensivel">Fotossensível</a></li>
+                                    <li><a href="/produtos.html?lente=antirreflexo">Antirreflexo</a></li>
+                                </ul>
+                            </div>
+                            <div class="megamenu-coluna">
+                                <h4>Marcas</h4>
+                                <ul>
+                                    <li><a href="/produtos.html?marca=rayban">Ray-Ban</a></li>
+                                    <li><a href="/produtos.html?marca=oakley">Oakley</a></li>
+                                    <li><a href="/produtos.html?marca=gucci">Gucci</a></li>
+                                    <li><a href="/produtos.html?marca=prada">Prada</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="menu-item-has-children">
+                    <a href="/produtos.html?categoria=sol">Óculos de Sol</a>
+                    <div class="megamenu-kessy">
+                        <div class="megamenu-container">
+                            <div class="megamenu-coluna">
+                                <h4>Por Estilo</h4>
+                                <ul>
+                                    <li><a href="/produtos.html?categoria=sol&sub=masculino">Masculino</a></li>
+                                    <li><a href="/produtos.html?categoria=sol&sub=feminino">Feminino</a></li>
+                                    <li><a href="/produtos.html?categoria=sol&sub=infantil">Infantil</a></li>
+                                </ul>
+                            </div>
+                            <div class="megamenu-coluna">
+                                <h4>Marcas</h4>
+                                <ul>
+                                    <li><a href="/produtos.html?marca=rayban&categoria=sol">Ray-Ban</a></li>
+                                    <li><a href="/produtos.html?marca=oakley&categoria=sol">Oakley</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li><a href="/produtos.html?categoria=lentes">Lentes de Contato</a></li>
+                <li><a href="/protecao.html">Óculos de Proteção</a></li>
+                <li><a href="/chat.html">Chat Online</a></li>
+                <li><a href="/contato.html">Contato</a></li>
+            </ul>
+        </nav>
+
+        <div class="whatsapp-kessy">
+            <a href="https://wa.me/5522999416737" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-whatsapp"></i> <span>Precisa de Ajuda?</span>
+            </a>
+        </div>
+
+        <div class="hamburger-kessy" id="hamburgerKessy">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</header>
+
+<div class="nav-overlay-kessy" id="navOverlayKessy"></div>
+
+<!-- ========== WHATSAPP FLUTUANTE ========== -->
+<a href="https://wa.me/5522999416737?text=Olá!%20Gostaria%20de%20mais%20informações" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
+    <i class="fab fa-whatsapp"></i>
+</a>
+
+<!-- ========== BENEFITS BAR ========== -->
+<div class="benefits-bar">
+    <div class="container">
+        <i class="fas fa-truck"></i> Frete grátis acima de R$ 299,00
+        <span>|</span>
+        <i class="fas fa-credit-card"></i> Parcele em até 10x sem juros
+        <span>|</span>
+        <i class="fas fa-shield-alt"></i> Produtos 100% originais
+    </div>
+</div>
+
+<!-- ========== CONTEÚDO PRINCIPAL ========== -->
+<main class="contact-page">
+    <div class="container">
+        <h2 class="section-title">Fale Conosco</h2>
+        
+        <div class="contact-grid">
+            <div class="contact-info">
+                <p><i class="fas fa-map-marker-alt"></i> <strong>Av. Nossa Sra. da Glória, 2469</strong> - Centro, Macaé/RJ</p>
+                <p><i class="fas fa-clock"></i> <strong>Horário:</strong> Segunda a Sexta, 8:30h às 18:30h</p>
+                <p><i class="fas fa-phone-alt"></i> <strong>(22) 2762-3007</strong></p>
+                <p><i class="fab fa-whatsapp"></i> <strong>(22) 99941-6737</strong></p>
+                <p><i class="fas fa-envelope"></i> <strong>contato@oticamacae.com.br</strong></p>
+                <div class="map">
+                    <iframe src="https://maps.google.com/maps?q=Rua%20Marechal%20Deodoro%2C%20185%2C%20Maca%C3%A9%2C%20RJ&t=&z=16&ie=UTF8&iwloc=&output=embed" width="100%" height="220" style="border:0; border-radius: 16px;"></iframe>
+                </div>
+            </div>
+            
+            <div class="contato-whatsapp">
+                <i class="fab fa-whatsapp" style="font-size: 3rem;"></i>
+                <h3>Atendimento via WhatsApp</h3>
+                <p>Clique no botão abaixo para falar diretamente conosco</p>
+                <a href="https://wa.me/5522999416737?text=Olá!%20Gostaria%20de%20mais%20informações" class="btn-whatsapp-grande" target="_blank">
+                    <i class="fab fa-whatsapp"></i> (22) 99941-6737
+                </a>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin: 60px 0 40px;">
+            <h2 class="section-title">Comandos do WhatsApp</h2>
+            <p style="text-align: center; margin-bottom: 30px;">Envie o número da opção desejada</p>
+            
+            <div class="comandos-container">
+                <div class="comandos-row">
+                    <div class="comando-card" onclick="window.open('https://wa.me/22 999416737?text=1%20-%20Produtos', '_blank')">
+                        <div class="comando-numero">1</div>
+                        <i class="fas fa-box"></i>
+                        <span>Produtos</span>
+                    </div>
+                    <div class="comando-card" onclick="window.open('https://wa.me/22 999416737?text=2%20-%20Exame%20de%20Vista', '_blank')">
+                        <div class="comando-numero">2</div>
+                        <i class="fas fa-stethoscope"></i>
+                        <span>Exame de Vista</span>
+                    </div>
+                    <div class="comando-card" onclick="window.open('https://wa.me/22 999416737?text=3%20-%20Pre%C3%A7os', '_blank')">
+                        <div class="comando-numero">3</div>
+                        <i class="fas fa-tag"></i>
+                        <span>Preços</span>
+                    </div>
+                    <div class="comando-card" onclick="window.open('https://wa.me/22 999416737?text=4%20-%20Localiza%C3%A7%C3%A3o', '_blank')">
+                        <div class="comando-numero">4</div>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Localização</span>
+                    </div>
+                </div>
+                <div class="comandos-row">
+                    <div class="comando-card" onclick="window.open('https://wa.me/22 999416737?text=5%20-%20Lentes', '_blank')">
+                        <div class="comando-numero">5</div>
+                        <i class="fas fa-eye"></i>
+                        <span>Lentes</span>
+                    </div>
+                    <div class="comando-card" onclick="window.open('https://wa.me/22 999416737?text=6%20-%20Garantia', '_blank')">
+                        <div class="comando-numero">6</div>
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Garantia</span>
+                    </div>
+                    <div class="comando-card" onclick="window.open('https://wa.me/22 999416737?text=7%20-%20Pagamento', '_blank')">
+                        <div class="comando-numero">7</div>
+                        <i class="fas fa-credit-card"></i>
+                        <span>Pagamento</span>
+                    </div>
+                    <div class="comando-card" onclick="window.open('https://wa.me/22 999416737?text=8%20-%20Atendente', '_blank')">
+                        <div class="comando-numero">8</div>
+                        <i class="fas fa-headset"></i>
+                        <span>Atendente</span>
+                    </div>
+                </div>
+                <div class="comandos-row">
+                    <div class="comando-card" onclick="window.open('https://wa.me/22 999416737?text=9%20-%20Promo%C3%A7%C3%B5es', '_blank')">
+                        <div class="comando-numero">9</div>
+                        <i class="fas fa-gift"></i>
+                        <span>Promoções</span>
+                    </div>
+                    <div class="comando-card" onclick="window.open('https://wa.me/22 999416737?text=99%20-%20Sair', '_blank')">
+                        <div class="comando-numero">99</div>
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Sair</span>
+                    </div>
+                    <div class="comando-card" onclick="window.open('https://wa.me/22 999416737?text=MENU%20-%20Menu', '_blank')">
+                        <div class="comando-numero">MENU</div>
+                        <i class="fas fa-home"></i>
+                        <span>Menu</span>
+                    </div>
+                    <div class="comando-card" onclick="window.open('https://wa.me/22 999416737?text=OI%20-%20Sauda%C3%A7%C3%A3o', '_blank')">
+                        <div class="comando-numero">OI</div>
+                        <i class="fas fa-smile"></i>
+                        <span>Saudação</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div>
+                <h4>Ótica Valentim</h4>
+                <p>Av. Nossa Sra. da Glória, 185 - Centro, Macaé/RJ</p>
+                <p>(22) 2762-3007</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="https://wa.me/5522999416737"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4>Atendimento</h4>
+                <p>WhatsApp: (22) 99941-6737</p>
+                <p>Telefone: (22) 2762-3007</p>
+                <p>E-mail: contato@oticamacae.com.br</p>
+            </div>
+            <div>
+                <h4>Pagamento</h4>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <i class="fab fa-cc-visa" style="font-size: 1.5rem;"></i>
+                    <i class="fab fa-cc-mastercard" style="font-size: 1.5rem;"></i>
+                    <i class="fab fa-paypal" style="font-size: 1.5rem;"></i>
+                    <i class="fas fa-qrcode" style="font-size: 1.5rem;"></i>
+                </div>
+                <p>Até 10x sem juros</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; <span id="currentYear"></span> Ótica Valentim - Todos os direitos reservados</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+// ========== MENU ESTILO KESSY ==========
+(function() {
+    const hamburger = document.getElementById('hamburgerKessy');
+    const nav = document.getElementById('mainNavKessy');
+    const overlay = document.getElementById('navOverlayKessy');
+
+    if (!hamburger || !nav || !overlay) return;
+
+    function toggleMenu() {
+        hamburger.classList.toggle('active');
+        nav.classList.toggle('active');
+        overlay.classList.toggle('active');
+        document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
+    }
+
+    function closeMenu() {
+        hamburger.classList.remove('active');
+        nav.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+        document.querySelectorAll('.menu-item-has-children.active').forEach(el => {
+            el.classList.remove('active');
+        });
+    }
+
+    hamburger.addEventListener('click', toggleMenu);
+    overlay.addEventListener('click', closeMenu);
+
+    function setupMobileDropdowns() {
+        if (window.innerWidth <= 992) {
+            document.querySelectorAll('.menu-item-has-children > a').forEach(link => {
+                link.removeEventListener('click', handleMobileClick);
+                link.addEventListener('click', handleMobileClick);
+            });
+        } else {
+            document.querySelectorAll('.menu-item-has-children > a').forEach(link => {
+                link.removeEventListener('click', handleMobileClick);
+            });
+        }
+    }
+
+    function handleMobileClick(e) {
+        if (window.innerWidth <= 992) {
+            e.preventDefault();
+            const parent = this.parentElement;
+            parent.classList.toggle('active');
+        }
+    }
+
+    document.querySelectorAll('.nav-kessy a:not(.menu-item-has-children > a)').forEach(link => {
+        link.addEventListener('click', closeMenu);
+    });
+
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 992) {
+            closeMenu();
+        }
+        setupMobileDropdowns();
+    });
+
+    setupMobileDropdowns();
+})();
+
+document.getElementById('currentYear').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>

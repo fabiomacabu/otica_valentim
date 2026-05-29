@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha Conta | Ótica Valentim</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/img/favicon/favicon.ico">
+    <link rel="shortcut icon" href="/img/favicon/favicon.ico">
+    <link rel="apple-touch-icon" href="/img/favicon/favicon.ico">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- CSS Principal -->
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <style>
+        /* Estilos específicos da página de conta */
+        .conta-container {
+            max-width: 500px;
+            margin: 80px auto;
+            background: white;
+            border-radius: 30px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.1);
+        }
+        .conta-container i {
+            font-size: 4rem;
+            color: var(--kessy-primary-light);
+            margin-bottom: 15px;
+        }
+        .conta-container h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: var(--kessy-text);
+        }
+        .conta-container p {
+            margin-bottom: 25px;
+            color: var(--kessy-text-light);
+        }
+        .btn-conta {
+            display: inline-block;
+            background: var(--kessy-primary);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            margin: 8px;
+            transition: 0.2s;
+            font-weight: 600;
+        }
+        .btn-conta:hover {
+            background: var(--kessy-primary-dark);
+            transform: translateY(-2px);
+        }
+        .btn-cadastro {
+            background: var(--kessy-primary-light);
+        }
+        .btn-cadastro:hover {
+            background: #6d4c41;
+        }
+        @media (max-width: 768px) {
+            .conta-container {
+                margin: 40px 20px;
+                padding: 30px 20px;
+            }
+            .btn-conta {
+                display: block;
+                margin: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ========== TOP BAR - ESTILO KESSY ========== -->
+<div class="top-bar-kessy">
+    <div class="container">
+        <div class="top-bar-links">
+            <a href="/atendimento.html"><i class="fas fa-headset"></i> Atendimento</a>
+            <a href="/sobre.html"><i class="fas fa-info-circle"></i> Sobre a Ótica Valentim</a>
+        </div>
+        <div class="top-bar-icons">
+        
+            
+        </div>
+    </div>
+</div>
+
+<!-- ========== HEADER PRINCIPAL ========== -->
+<header class="header-kessy">
+    <div class="container">
+        <div class="logo-kessy">
+            <a href="/index.html">
+                <img src="/img/logo/logo.jpg" alt="Ótica Valentim" onerror="this.src='https://placehold.co/150x50/4E342E/white?text=Ótica+Valentim'">
+            </a>
+        </div>
+
+        <nav class="nav-kessy" id="mainNavKessy">
+            <ul class="menu-principal">
+                <!-- Óculos de Grau (mega menu resumido para não alongar) -->
+                <li class="menu-item-has-children">
+                    <a href="/produtos.html?categoria=grau">👓 Óculos de Grau</a>
+                    <div class="megamenu-kessy">
+                        <div class="megamenu-container">
+                            <div class="megamenu-coluna"><h4>Por Formato</h4><ul><li><a href="/produtos.html?formato=redondo">Redondo</a></li><li><a href="/produtos.html?formato=quadrado">Quadrado</a></li><li><a href="/produtos.html?formato=retangular">Retangular</a></li><li><a href="/produtos.html?formato=gatinho">Gatinho</a></li><li><a href="/produtos.html?formato=oval">Oval</a></li><li><a href="/produtos.html?formato=aviador">Aviador</a></li><li><a href="/produtos.html?formato=clubmaster">Clubmaster</a></li><li><a href="/produtos.html?formato=geometrico">Geométrico</a></li></ul></div>
+                            <div class="megamenu-coluna"><h4>Por Cor</h4><ul><li><a href="/produtos.html?cor=preto">Preto</a></li><li><a href="/produtos.html?cor=marrom">Marrom/Tartaruga</a></li><li><a href="/produtos.html?cor=transparente">Transparente</a></li><li><a href="/produtos.html?cor=azul">Azul</a></li><li><a href="/produtos.html?cor=rose">Rose Gold</a></li></ul></div>
+                            <div class="megamenu-coluna"><h4>Por Gênero</h4><ul><li><a href="/produtos.html?categoria=grau&sub=masculino">Masculino</a></li><li><a href="/produtos.html?categoria=grau&sub=feminino">Feminino</a></li><li><a href="/produtos.html?categoria=grau&sub=infantil">Infantil</a></li><li><a href="/produtos.html?categoria=grau&sub=unissex">Unissex</a></li></ul></div>
+                            <div class="megamenu-coluna"><h4>Lentes Especiais</h4><ul><li><a href="/produtos.html?lente=blue-light">Blue Light</a></li><li><a href="/produtos.html?lente=fotossensivel">Fotossensível</a></li><li><a href="/produtos.html?lente=antirreflexo">Antirreflexo</a></li><li><a href="/produtos.html?lente=progressiva">Progressiva</a></li></ul></div>
+                            <div class="megamenu-coluna"><h4>Marcas</h4><ul><li><a href="/produtos.html?marca=rayban">Ray-Ban</a></li><li><a href="/produtos.html?marca=oakley">Oakley</a></li><li><a href="/produtos.html?marca=gucci">Gucci</a></li><li><a href="/produtos.html?marca=prada">Prada</a></li><li><a href="/produtos.html?marca=ferrari">Ferrari</a></li></ul><a href="/produtos.html" class="link-ver-todos">Ver Todos <i class="fas fa-arrow-right"></i></a></div>
+                        </div>
+                    </div>
+                </li>
+                <li class="menu-item-has-children">
+                    <a href="/produtos.html?categoria=sol">🕶️ Óculos de Sol</a>
+                    <div class="megamenu-kessy">
+                        <div class="megamenu-container">
+                            <div class="megamenu-coluna"><h4>Por Estilo</h4><ul><li><a href="/produtos.html?categoria=sol&sub=masculino">Masculino</a></li><li><a href="/produtos.html?categoria=sol&sub=feminino">Feminino</a></li><li><a href="/produtos.html?categoria=sol&sub=infantil">Infantil</a></li><li><a href="/produtos.html?categoria=sol&sub=esportivo">Esportivo</a></li><li><a href="/produtos.html?categoria=sol&sub=polarizado">Polarizado</a></li></ul></div>
+                            <div class="megamenu-coluna"><h4>Por Cor</h4><ul><li><a href="/produtos.html?cor=preto&categoria=sol">Preto</a></li><li><a href="/produtos.html?cor=marrom&categoria=sol">Marrom</a></li><li><a href="/produtos.html?cor=azul&categoria=sol">Azul</a></li><li><a href="/produtos.html?cor=verde&categoria=sol">Verde</a></li></ul></div>
+                            <div class="megamenu-coluna"><h4>Marcas</h4><ul><li><a href="/produtos.html?marca=rayban&categoria=sol">Ray-Ban</a></li><li><a href="/produtos.html?marca=oakley&categoria=sol">Oakley</a></li><li><a href="/produtos.html?marca=gucci&categoria=sol">Gucci</a></li><li><a href="/produtos.html?marca=prada&categoria=sol">Prada</a></li></ul><a href="/produtos.html?categoria=sol" class="link-ver-todos">Ver Todos <i class="fas fa-arrow-right"></i></a></div>
+                            <div class="megamenu-coluna"><h4>Promoções</h4><ul><li><a href="/produtos.html?promocao=verao">Ofertas de Verão</a></li><li><a href="/produtos.html?promocao=colecao">Nova Coleção</a></li><li><a href="/produtos.html?promocao=outlet">Outlet</a></li></ul></div>
+                            <div class="megamenu-coluna"><h4>Dicas</h4><ul><li><a href="/blog/como-escolher-oculos-de-sol">Como escolher</a></li><li><a href="/blog/cuidados-com-oculos-de-sol">Cuidados</a></li></ul></div>
+                        </div>
+                    </div>
+                </li>
+                <li><a href="/produtos.html?categoria=lentes">👁️ Lentes de Contato</a></li>
+                <li><a href="/protecao.html">🛡️ Óculos de Proteção</a></li>
+                <li><a href="/chat.html">💬 Chat Online</a></li>
+                <li><a href="/contato.html">📞 Contato</a></li>
+            </ul>
+        </nav>
+
+        <div class="whatsapp-kessy">
+            <a href="https://wa.me/5522999416737" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-whatsapp"></i> <span>Precisa de Ajuda?</span>
+            </a>
+        </div>
+
+        <div class="hamburger-kessy" id="hamburgerKessy">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</header>
+
+<div class="nav-overlay-kessy" id="navOverlayKessy"></div>
+
+<!-- ========== WHATSAPP FLUTUANTE ========== -->
+<a href="https://wa.me/5522999416737" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
+    <i class="fab fa-whatsapp"></i>
+</a>
+
+<!-- ========== BARRA DE BENEFÍCIOS ========== -->
+<div class="benefits-bar">
+    <div class="container">
+        <i class="fas fa-truck"></i> Frete grátis acima de R$ 299,00
+        <span>|</span>
+        <i class="fas fa-credit-card"></i> Parcele em até 10x sem juros
+        <span>|</span>
+        <i class="fas fa-shield-alt"></i> Produtos 100% originais
+    </div>
+</div>
+
+<main>
+    <div class="container">
+        <div class="conta-container">
+            <i class="fas fa-user-circle"></i>
+            <h2>Minha Conta</h2>
+            <p>Acesse sua conta ou cadastre-se para acompanhar pedidos, cupons e preferências.</p>
+            <a href="/login.html" class="btn-conta">Entrar</a>
+            <a href="/cadastro.html" class="btn-conta btn-cadastro">Criar conta</a>
+        </div>
+    </div>
+</main>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div>
+                <h4>Ótica Valentim</h4>
+                <p>Av. Nossa Sra. da Glória, 185<br>Macaé - RJ</p>
+                <p>(22) 2762-3007</p>
+                <div class="social-icons">
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4>Institucional</h4>
+                <ul>
+                    <li><a href="/sobre.html">Sobre nós</a></li>
+                    <li><a href="/contato.html">Fale conosco</a></li>
+                    <li><a href="/cadastro.html">Cadastro</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Ajuda</h4>
+                <ul>
+                    <li><a href="#">Entrega e frete</a></li>
+                    <li><a href="#">Trocas e devoluções</a></li>
+                    <li><a href="#">Garantia</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Pagamento</h4>
+                <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 15px;">
+                    <i class="fab fa-cc-visa" style="font-size: 1.5rem;"></i>
+                    <i class="fab fa-cc-mastercard" style="font-size: 1.5rem;"></i>
+                    <i class="fab fa-cc-amex" style="font-size: 1.5rem;"></i>
+                    <i class="fab fa-paypal" style="font-size: 1.5rem;"></i>
+                    <i class="fas fa-qrcode" style="font-size: 1.5rem;"></i>
+                </div>
+                <p>Até 10x sem juros</p>
+                <p>PIX com 5% OFF</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; <span id="currentYear"></span> Ótica Valentim - Todos os direitos reservados</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // ========== MENU MOBILE ==========
+    (function() {
+        const hamburger = document.getElementById('hamburgerKessy');
+        const nav = document.getElementById('mainNavKessy');
+        const overlay = document.getElementById('navOverlayKessy');
+        if (!hamburger) return;
+        
+        function toggleMenu() {
+            hamburger.classList.toggle('active');
+            nav.classList.toggle('active');
+            overlay.classList.toggle('active');
+            document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
+        }
+        
+        function closeMenu() {
+            hamburger.classList.remove('active');
+            nav.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+            document.querySelectorAll('.menu-item-has-children.active').forEach(el => el.classList.remove('active'));
+        }
+        
+        hamburger.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', closeMenu);
+        
+        function setupMobileDropdowns() {
+            if (window.innerWidth <= 992) {
+                document.querySelectorAll('.menu-item-has-children > a').forEach(link => {
+                    link.removeEventListener('click', handleMobileClick);
+                    link.addEventListener('click', handleMobileClick);
+                });
+            } else {
+                document.querySelectorAll('.menu-item-has-children > a').forEach(link => link.removeEventListener('click', handleMobileClick));
+            }
+        }
+        
+        function handleMobileClick(e) {
+            if (window.innerWidth <= 992) {
+                e.preventDefault();
+                this.parentElement.classList.toggle('active');
+            }
+        }
+        
+        document.querySelectorAll('.nav-kessy a:not(.menu-item-has-children > a)').forEach(link => link.addEventListener('click', closeMenu));
+        window.addEventListener('resize', () => { if (window.innerWidth > 992) closeMenu(); setupMobileDropdowns(); });
+        setupMobileDropdowns();
+    })();
+
+    // ========== ANO ATUAL ==========
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

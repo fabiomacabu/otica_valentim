@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notificações em Massa | Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background: #f4f2ef; color: #2c1a15; }
+        .admin-nav { background: #2c1a15; padding: 0 1.5rem; position: sticky; top: 0; z-index: 100; }
+        .admin-nav .container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; padding: 0.8rem 0; }
+        .admin-nav h3 { color: #f5e6d3; font-weight: 600; }
+        .admin-nav h3 i { margin-right: 8px; color: #f5a623; }
+        .nav-links { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .nav-links a { color: #f0e6df; text-decoration: none; padding: 0.5rem 1rem; border-radius: 40px; font-size: 0.9rem; transition: 0.2s; }
+        .nav-links a:hover { background: rgba(245,166,35,0.2); color: #f5a623; }
+        .nav-links a.active { background: #f5a623; color: #2c1a15; }
+        #logoutBtn { background: rgba(220,53,69,0.15); color: #ffaaa5; }
+        #logoutBtn:hover { background: #dc3545; color: white; }
+        .main-container { max-width: 1400px; margin: 2rem auto; padding: 0 1.5rem; }
+        .card { background: white; border-radius: 28px; padding: 1.5rem; margin-bottom: 2rem; box-shadow: 0 8px 20px rgba(0,0,0,0.05); }
+        .section-title { font-size: 1.4rem; font-weight: 600; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 10px; }
+        .filter-bar { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; align-items: center; }
+        .filter-bar input, .filter-bar select { padding: 0.6rem 1rem; border-radius: 40px; border: 1px solid #ddd6d0; background: white; }
+        .btn-primary { background: #f5a623; color: #2c1a15; border: none; padding: 0.6rem 1.2rem; border-radius: 40px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .btn-primary:hover { background: #e69500; transform: translateY(-1px); }
+        .btn-secondary { background: #e9ecef; color: #495057; border: none; padding: 0.6rem 1.2rem; border-radius: 40px; cursor: pointer; }
+        .clientes-table { width: 100%; border-collapse: collapse; }
+        .clientes-table th, .clientes-table td { padding: 0.8rem; text-align: left; border-bottom: 1px solid #e6dfd9; }
+        .clientes-table th { background: #faf7f4; font-weight: 600; }
+        .clientes-table tr:hover td { background: #fefaf6; }
+        .mensagem-area textarea { width: 100%; padding: 1rem; border-radius: 24px; border: 1px solid #ddd6d0; font-family: monospace; font-size: 0.9rem; }
+        .preview-area { background: #fef6ed; border-radius: 24px; padding: 1rem; margin-top: 1rem; }
+        .copy-btn { background: #25D366; color: white; border: none; padding: 0.5rem 1rem; border-radius: 40px; cursor: pointer; margin-top: 0.5rem; }
+        .result-links { background: #2c1a15; color: #f0e6df; padding: 1rem; border-radius: 24px; font-family: monospace; font-size: 0.8rem; white-space: pre-wrap; word-break: break-all; max-height: 300px; overflow-y: auto; }
+    </style>
+</head>
+<body>
+<div class="admin-nav">
+    <div class="container">
+        <h3><i class="fas fa-bullhorn"></i> Notificações em Massa</h3>
+        <div class="nav-links">
+            <a href="/admin/dashboard.html">Dashboard</a>
+            <a href="/admin/produtos-admin.html">Produtos</a>
+            <a href="/admin/chat-admin.html">Chat</a>
+            <a href="/admin/cupons-admin.html">Cupons</a>
+            <a href="/admin/marcas-admin.html">Marcas</a>
+            <a href="/admin/chat-bot-admin.html">Bot</a>
+            <a href="/admin/notificacoes-admin.html" class="active">Notificações</a>
+            <a href="#" id="logoutBtn">Sair</a>
+        </div>
+    </div>
+</div>
+
+<div class="main-container">
+    <div class="card">
+        <div class="section-title"><i class="fas fa-users"></i> Selecione os clientes</div>
+        <div class="filter-bar">
+            <input type="text" id="filtroNome" placeholder="Filtrar por nome" style="flex:2">
+            <select id="filtroPreferencia">
+                <option value="">Todas preferências</option>
+                <option value="grau">Óculos de Grau</option>
+                <option value="sol">Óculos de Sol</option>
+                <option value="lentes">Lentes de Contato</option>
+            </select>
+            <button class="btn-primary" id="btnSelecionarTodos"><i class="fas fa-check-double"></i> Selecionar todos</button>
+            <button class="btn-secondary" id="btnLimparSelecao"><i class="fas fa-times"></i> Limpar</button>
+        </div>
+        <div style="overflow-x: auto;">
+            <table class="clientes-table" id="tabelaClientes">
+                <thead><tr><th style="width:40px"><input type="checkbox" id="checkboxMaster"></th><th>ID</th><th>Nome</th><th>Telefone</th><th>Preferência</th><th>Email</th></tr></thead>
+                <tbody id="listaClientes"><tr><td colspan="6" style="text-align:center">Carregando...</td></tr></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="section-title"><i class="fas fa-edit"></i> Mensagem da campanha</div>
+        <div class="mensagem-area">
+            <textarea id="mensagemBase" rows="5" placeholder="Digite sua mensagem aqui. Use {nome} para inserir o nome do cliente. Exemplo: Olá {nome}, temos uma oferta especial!"></textarea>
+            <div class="preview-area">
+                <strong><i class="fas fa-eye"></i> Pré-visualização (primeiro cliente selecionado):</strong>
+                <div id="previewMensagem" style="margin-top: 8px; font-style: italic;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="section-title"><i class="fab fa-whatsapp"></i> Gerar links WhatsApp</div>
+        <button class="btn-primary" id="btnGerarLinks"><i class="fab fa-whatsapp"></i> Gerar links e mensagens</button>
+        <div id="resultadoLinks" class="result-links" style="margin-top: 1rem; display: none;"></div>
+        <button id="btnCopiar" class="copy-btn" style="display: none;"><i class="fas fa-copy"></i> Copiar tudo</button>
+    </div>
+</div>
+
+<script>
+    let clientes = [];
+    let selecionados = new Set();
+
+    async function carregarClientes() {
+        try {
+            const res = await fetch('/api/admin/clientes');
+            clientes = await res.json();
+            renderTabela();
+        } catch (err) {
+            console.error(err);
+            document.getElementById('listaClientes').innerHTML = '<tr><td colspan="6">Erro ao carregar clientes</td></tr>';
+        }
+    }
+
+    function renderTabela() {
+        const filtroNome = document.getElementById('filtroNome').value.toLowerCase();
+        const filtroPref = document.getElementById('filtroPreferencia').value;
+        const filtrados = clientes.filter(c => {
+            const matchNome = c.nome.toLowerCase().includes(filtroNome);
+            const matchPref = !filtroPref || c.preferencias === filtroPref;
+            return matchNome && matchPref;
+        });
+        const tbody = document.getElementById('listaClientes');
+        if (filtrados.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="6">Nenhum cliente encontrado</td></tr>';
+            return;
+        }
+        tbody.innerHTML = filtrados.map(c => `
+            <tr>
+                <td><input type="checkbox" class="cliente-checkbox" value="${c.id}" ${selecionados.has(c.id) ? 'checked' : ''}></td>
+                <td>${c.id}</td>
+                <td>${escapeHtml(c.nome)}</td>
+                <td>${formatarTelefone(c.telefone)}</td>
+                <td>${c.preferencias || '-'}</td>
+                <td>${c.email || '-'}</td>
+            </tr>
+        `).join('');
+        // Rebind events
+        document.querySelectorAll('.cliente-checkbox').forEach(cb => {
+            cb.addEventListener('change', (e) => {
+                const id = parseInt(e.target.value);
+                if (e.target.checked) selecionados.add(id);
+                else selecionados.delete(id);
+                atualizarMasterCheckbox();
+                atualizarPreview();
+            });
+        });
+        atualizarMasterCheckbox();
+        atualizarPreview();
+    }
+
+    function atualizarMasterCheckbox() {
+        const totalCheckboxes = document.querySelectorAll('.cliente-checkbox').length;
+        const checkedCount = document.querySelectorAll('.cliente-checkbox:checked').length;
+        const master = document.getElementById('checkboxMaster');
+        if (master) {
+            master.checked = totalCheckboxes > 0 && checkedCount === totalCheckboxes;
+            master.indeterminate = checkedCount > 0 && checkedCount < totalCheckboxes;
+        }
+    }
+
+    document.getElementById('checkboxMaster')?.addEventListener('change', (e) => {
+        const isChecked = e.target.checked;
+        document.querySelectorAll('.cliente-checkbox').forEach(cb => {
+            cb.checked = isChecked;
+            const id = parseInt(cb.value);
+            if (isChecked) selecionados.add(id);
+            else selecionados.delete(id);
+        });
+        atualizarPreview();
+    });
+
+    function atualizarPreview() {
+        const primeiroId = Array.from(selecionados)[0];
+        const cliente = clientes.find(c => c.id === primeiroId);
+        if (cliente && selecionados.size > 0) {
+            const msgBase = document.getElementById('mensagemBase').value;
+            const msgPersonalizada = msgBase.replace(/{nome}/g, cliente.nome);
+            document.getElementById('previewMensagem').innerHTML = escapeHtml(msgPersonalizada);
+        } else {
+            document.getElementById('previewMensagem').innerHTML = 'Nenhum cliente selecionado.';
+        }
+    }
+
+    document.getElementById('filtroNome').addEventListener('input', renderTabela);
+    document.getElementById('filtroPreferencia').addEventListener('change', renderTabela);
+    document.getElementById('btnSelecionarTodos').addEventListener('click', () => {
+        document.querySelectorAll('.cliente-checkbox').forEach(cb => {
+            cb.checked = true;
+            selecionados.add(parseInt(cb.value));
+        });
+        atualizarMasterCheckbox();
+        atualizarPreview();
+    });
+    document.getElementById('btnLimparSelecao').addEventListener('click', () => {
+        document.querySelectorAll('.cliente-checkbox').forEach(cb => {
+            cb.checked = false;
+            selecionados.clear();
+        });
+        atualizarMasterCheckbox();
+        atualizarPreview();
+    });
+    document.getElementById('mensagemBase').addEventListener('input', atualizarPreview);
+
+    document.getElementById('btnGerarLinks').addEventListener('click', () => {
+        const msgBase = document.getElementById('mensagemBase').value;
+        if (!msgBase) return alert('Digite uma mensagem primeiro.');
+        if (selecionados.size === 0) return alert('Selecione pelo menos um cliente.');
+        const clientesSelecionados = clientes.filter(c => selecionados.has(c.id));
+        let linksHtml = '';
+        clientesSelecionados.forEach(c => {
+            const telefoneLimpo = c.telefone ? c.telefone.replace(/\D/g, '') : '';
+            if (!telefoneLimpo) return;
+            const mensagemPersonalizada = msgBase.replace(/{nome}/g, c.nome);
+            const link = `https://wa.me/55${telefoneLimpo}?text=${encodeURIComponent(mensagemPersonalizada)}`;
+            linksHtml += `<div><a href="${link}" target="_blank">📱 Enviar para ${c.nome}</a> - ${formatarTelefone(c.telefone)}</div>`;
+        });
+        if (!linksHtml) linksHtml = '<div>Nenhum número válido encontrado.</div>';
+        const resultadoDiv = document.getElementById('resultadoLinks');
+        resultadoDiv.innerHTML = linksHtml;
+        resultadoDiv.style.display = 'block';
+        document.getElementById('btnCopiar').style.display = 'inline-block';
+        // Armazena texto plano para cópia
+        const textoPlano = clientesSelecionados.map(c => {
+            const tel = c.telefone ? c.telefone.replace(/\D/g, '') : '';
+            const msg = msgBase.replace(/{nome}/g, c.nome);
+            return `https://wa.me/55${tel}?text=${encodeURIComponent(msg)}`;
+        }).join('\n');
+        document.getElementById('btnCopiar').onclick = () => {
+            navigator.clipboard.writeText(textoPlano);
+            alert('Links copiados para a área de transferência!');
+        };
+    });
+
+    function formatarTelefone(tel) {
+        if (!tel) return '-';
+        const t = tel.replace(/\D/g, '');
+        if (t.length === 11) return `(${t.slice(0,2)}) ${t.slice(2,7)}-${t.slice(7)}`;
+        if (t.length === 10) return `(${t.slice(0,2)}) ${t.slice(2,6)}-${t.slice(6)}`;
+        return tel;
+    }
+    function escapeHtml(str) { return String(str).replace(/[&<>]/g, function(m){if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
+
+    document.getElementById('logoutBtn').addEventListener('click', async (e) => {
+        e.preventDefault();
+        await fetch('/api/admin/logout', { method: 'POST' });
+        window.location.href = '/admin/login.html';
+    });
+
+    carregarClientes();
+</script>
+</body>
+</html>

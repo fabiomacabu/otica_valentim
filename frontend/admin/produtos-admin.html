@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Produtos - Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .admin-nav {
+            background: #2c1a15;
+            padding: 15px 0;
+            margin-bottom: 30px;
+        }
+        .admin-nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .admin-nav a {
+            color: #f0f0f0;
+            text-decoration: none;
+            margin-left: 20px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+        .admin-nav a:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        .table-container {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 20px;
+            overflow-x: auto;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        .produtos-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .produtos-table th {
+            text-align: left;
+            padding: 15px;
+            background: #3E2723;
+            color: #ffffff;
+            font-weight: 600;
+        }
+        .produtos-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e0d6d3;
+            vertical-align: middle;
+            color: #2c2c2c;
+        }
+        .produtos-table tr:hover {
+            background: #f5f0ed;
+        }
+        .produto-imagem {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 12px;
+            background: #f0f0f0;
+        }
+        .btn-editar {
+            background: #f57c00;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-right: 8px;
+            transition: transform 0.2s;
+        }
+        .btn-excluir {
+            background: #d32f2f;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .btn-editar:hover, .btn-excluir:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.05);
+        }
+        /* BADGES CORRIGIDOS */
+        .badge-masculino {
+            background: #2196F3;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            display: inline-block;
+        }
+        .badge-feminino {
+            background: #E91E63;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            display: inline-block;
+        }
+        .badge-infantil {
+            background: #4CAF50;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            display: inline-block;
+        }
+        .badge-unissex {
+            background: #757575;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            display: inline-block;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background: #ffffff;
+            max-width: 600px;
+            width: 90%;
+            border-radius: 28px;
+            padding: 35px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .btn-novo {
+            background: #4E342E;
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-bottom: 25px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.2s;
+        }
+        .btn-novo:hover {
+            transform: translateY(-2px);
+            background: #3E2723;
+        }
+        .btn-salvar {
+            background: #4E342E;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 10px;
+        }
+        .btn-salvar:hover {
+            background: #3E2723;
+        }
+        .btn-cancelar {
+            background: #757575;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 10px;
+        }
+        .badge-destaque {
+            background: #FFC107;
+            color: #3E2723;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+        .campo-moderno {
+            margin-bottom: 20px;
+        }
+        .campo-moderno label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #3E2723;
+            font-size: 0.85rem;
+        }
+        .campo-moderno input, .campo-moderno select, .campo-moderno textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #d4cdc9;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            background: #ffffff;
+        }
+        .campo-moderno input:focus, .campo-moderno select:focus {
+            outline: none;
+            border-color: #6D4C41;
+            box-shadow: 0 0 0 3px rgba(93,64,55,0.15);
+        }
+        .checkbox-moderno {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 15px 0;
+            cursor: pointer;
+        }
+        .section-title {
+            color: #3E2723;
+            margin-bottom: 20px;
+        }
+        @media (max-width: 768px) {
+            .produtos-table th, .produtos-table td {
+                padding: 10px;
+                font-size: 0.75rem;
+            }
+            .btn-editar, .btn-excluir {
+                padding: 5px 10px;
+                font-size: 0.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-nav">
+        <div class="container">
+            <h3 style="color: #ffffff;">🤎 Painel Administrativo</h3>
+                <div class="nav-links">
+                    <a href="/admin/dashboard.html">Dashboard</a>
+                    <a href="/admin/produtos-admin.html">Produtos</a>
+                    <a href="/admin/chat-admin.html">Chat</a>
+                    <a href="/admin/cupons-admin.html">Cupons</a>
+                    <a href="/admin/marcas-admin.html">Marcas</a>
+                    <a href="/admin/chat-bot-admin.html">Bot</a>
+                    <a href="/admin/notificacoes-admin.html">Notificações</a>
+                    <a href="#" id="logoutBtn">Sair</a>
+                </div>                                                                                             
+        </div>
+    </div>
+    
+    <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap; gap: 15px;">
+            <h2 class="section-title" style="margin-bottom: 0;">📦 Gerenciar Produtos</h2>
+            <button class="btn-novo" id="btnNovoProduto">
+                <i class="fas fa-plus-circle"></i> Novo Produto
+            </button>
+        </div>
+        
+        <div class="table-container">
+            <table class="produtos-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Imagem</th>
+                        <th>Nome</th>
+                        <th>Marca</th>
+                        <th>Público</th>
+                        <th>Preço</th>
+                        <th>Categoria</th>
+                        <th>Formato</th>
+                        <th>Destaque</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="listaProdutos">
+                    <tr><td colspan="10" style="text-align: center; padding: 40px;">Carregando produtos...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <!-- Modal de Produto -->
+    <div id="modalProduto" class="modal">
+        <div class="modal-content">
+            <h3><i class="fas fa-box"></i> <span id="modalTitle">Novo Produto</span></h3>
+            <form id="produtoForm" enctype="multipart/form-data">
+                <input type="hidden" id="produtoId">
+                
+                <div class="campo-moderno">
+                    <label><i class="fas fa-tag"></i> Nome do produto *</label>
+                    <input type="text" id="nome" placeholder="Ex: Óculos Ray-Ban Wayfarer" required>
+                </div>
+                
+                <div class="campo-moderno">
+                    <label><i class="fas fa-align-left"></i> Descrição</label>
+                    <textarea id="descricao" rows="3" placeholder="Descreva o produto..."></textarea>
+                </div>
+                
+                <div class="campo-moderno">
+                    <label><i class="fas fa-dollar-sign"></i> Preço (R$) *</label>
+                    <input type="number" id="preco" step="0.01" placeholder="0,00" required>
+                </div>
+                
+                <div class="campo-moderno">
+                    <label><i class="fas fa-layer-group"></i> Categoria</label>
+                    <select id="categoria">
+                        <option value="grau">👓 Óculos de Grau</option>
+                        <option value="sol">🕶️ Óculos de Sol</option>
+                        <option value="lentes">👁️ Lentes de Contato</option>
+                    </select>
+                </div>
+                
+                <div class="campo-moderno">
+                    <label><i class="fas fa-venus-mars"></i> Público Alvo</label>
+                    <select id="categoriaSexo">
+                        <option value="unissex">🔄 Unissex</option>
+                        <option value="masculino">👨 Masculino</option>
+                        <option value="feminino">👩 Feminino</option>
+                        <option value="infantil">🧒 Infantil</option>
+                    </select>
+                </div>
+                
+                <!-- CAMPO FORMATO -->
+                <div class="campo-moderno">
+                    <label><i class="fas fa-shapes"></i> Formato da Armação</label>
+                    <select id="formato">
+                        <option value="">Selecione um formato</option>
+                        <option value="redondo">Redondo</option>
+                        <option value="quadrado">Quadrado</option>
+                        <option value="retangular">Retangular</option>
+                        <option value="gatinho">Gatinho</option>
+                        <option value="oval">Oval</option>
+                        <option value="aviador">Aviador</option>
+                        <option value="clubmaster">Clubmaster</option>
+                        <option value="geometrico">Geométrico</option>
+                    </select>
+                </div>
+                
+                <div class="campo-moderno">
+                    <label><i class="fas fa-building"></i> Marca</label>
+                    <select id="marcaId">
+                        <option value="">Selecione uma marca</option>
+                    </select>
+                </div>
+                
+                <div class="campo-moderno">
+                    <label><i class="fas fa-image"></i> Imagem do produto</label>
+                    <input type="file" id="imagem" accept="image/*">
+                    <small style="color: #6D4C41; display: block; margin-top: 5px;">Formatos: PNG, JPG, JPEG, WEBP (máx. 5MB)</small>
+                </div>
+                
+                <label class="checkbox-moderno">
+                    <input type="checkbox" id="destaque">
+                    <span>⭐ Destacar este produto na página inicial</span>
+                </label>
+                
+                <button type="submit" class="btn-salvar">
+                    <i class="fas fa-save"></i> Salvar Produto
+                </button>
+                <button type="button" class="btn-cancelar" id="fecharModal">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        let produtos = [];
+        let marcas = [];
+        
+        async function verificarLogin() {
+            try {
+                const res = await fetch('/api/admin/check');
+                const data = await res.json();
+                if (!data.isAdmin) window.location.href = '/admin/login.html';
+            } catch (error) {
+                window.location.href = '/admin/login.html';
+            }
+        }
+        
+        async function carregarMarcasSelect() {
+            try {
+                const res = await fetch('/api/marcas');
+                if (!res.ok) throw new Error('Erro ao carregar marcas');
+                marcas = await res.json();
+                const select = document.getElementById('marcaId');
+                select.innerHTML = '<option value="">Selecione uma marca</option>' + 
+                    marcas.map(m => `<option value="${m.id}">${m.nome}</option>`).join('');
+            } catch (error) {
+                console.error('Erro ao carregar marcas:', error);
+                const select = document.getElementById('marcaId');
+                select.innerHTML = '<option value="">Erro ao carregar marcas</option>';
+            }
+        }
+        
+        function getBadgeSexo(sexo) {
+            if (sexo === 'masculino') return '<span class="badge-masculino">👨 Masculino</span>';
+            if (sexo === 'feminino') return '<span class="badge-feminino">👩 Feminino</span>';
+            if (sexo === 'infantil') return '<span class="badge-infantil">🧒 Infantil</span>';
+            return '<span class="badge-unissex">🔄 Unissex</span>';
+        }
+        
+        async function carregarProdutos() {
+            try {
+                const res = await fetch('/api/produtos');
+                if (!res.ok) throw new Error('Erro na requisição');
+                produtos = await res.json();
+                const tbody = document.getElementById('listaProdutos');
+                if (produtos.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="10" style="text-align: center; padding: 40px;">📭 Nenhum produto cadastrado ainda</td></tr>';
+                    return;
+                }
+                
+                tbody.innerHTML = produtos.map(p => {
+                    const formatoNome = p.formato ? p.formato.charAt(0).toUpperCase() + p.formato.slice(1) : '-';
+                    return `
+                    <tr>
+                        <td>${p.id}</td>
+                        <td><img src="${p.imagem || 'https://placehold.co/60/8D6E63/white?text=img'}" class="produto-imagem" onerror="this.src='https://placehold.co/60/8D6E63/white?text=img'"></td>
+                        <td><strong>${escapeHtml(p.nome)}</strong></td>
+                        <td>${p.marca_nome || '-'}</td>
+                        <td>${getBadgeSexo(p.categoria_sexo)}</td>
+                        <td style="color: #4E342E; font-weight: bold;">R$ ${parseFloat(p.preco).toFixed(2)}</td>
+                        <td>${p.categoria === 'grau' ? '👓 Grau' : (p.categoria === 'sol' ? '🕶️ Sol' : '👁️ Lentes')}</td>
+                        <td>${formatoNome}</td>
+                        <td>${p.destaque === 1 ? '<span class="badge-destaque">⭐ Destaque</span>' : '-'}</td>
+                        <td>
+                            <button class="btn-editar" onclick="editarProduto(${p.id})"><i class="fas fa-edit"></i> Editar</button>
+                            <button class="btn-excluir" onclick="excluirProduto(${p.id})"><i class="fas fa-trash"></i> Excluir</button>
+                        </td>
+                    </tr>
+                `}).join('');
+            } catch (error) {
+                console.error(error);
+                document.getElementById('listaProdutos').innerHTML = '<tr><td colspan="10" style="text-align: center; padding: 40px;">❌ Erro ao carregar produtos</td></tr>';
+            }
+        }
+        
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        async function editarProduto(id) {
+            try {
+                const response = await fetch(`/api/produtos/${id}`);
+                if (!response.ok) throw new Error('Produto não encontrado');
+                const produto = await response.json();
+                
+                document.getElementById('modalTitle').innerHTML = '<i class="fas fa-edit"></i> Editar Produto';
+                document.getElementById('produtoId').value = produto.id;
+                document.getElementById('nome').value = produto.nome;
+                document.getElementById('descricao').value = produto.descricao || '';
+                document.getElementById('preco').value = produto.preco;
+                document.getElementById('categoria').value = produto.categoria;
+                document.getElementById('categoriaSexo').value = produto.categoria_sexo || 'unissex';
+                document.getElementById('formato').value = produto.formato || '';
+                document.getElementById('destaque').checked = produto.destaque === 1;
+                
+                await carregarMarcasSelect();
+                document.getElementById('marcaId').value = produto.marca_id || '';
+                
+                document.getElementById('modalProduto').style.display = 'flex';
+            } catch (error) {
+                console.error('Erro ao editar:', error);
+                alert('Erro ao carregar dados do produto para edição');
+            }
+        }
+        
+        async function excluirProduto(id) {
+            if (confirm('⚠️ Tem certeza que deseja excluir este produto? Esta ação não poderá ser desfeita.')) {
+                try {
+                    const response = await fetch(`/api/admin/produtos/${id}`, { method: 'DELETE' });
+                    if (response.ok) {
+                        alert('✅ Produto excluído com sucesso!');
+                        carregarProdutos();
+                    } else {
+                        const error = await response.json();
+                        alert('❌ Erro: ' + (error.error || 'Não foi possível excluir'));
+                    }
+                } catch (error) {
+                    alert('❌ Erro de conexão com o servidor');
+                }
+            }
+        }
+        
+        document.getElementById('btnNovoProduto').onclick = () => {
+            document.getElementById('modalTitle').innerHTML = '<i class="fas fa-plus-circle"></i> Novo Produto';
+            document.getElementById('produtoForm').reset();
+            document.getElementById('produtoId').value = '';
+            document.getElementById('categoriaSexo').value = 'unissex';
+            document.getElementById('formato').value = '';
+            document.getElementById('modalProduto').style.display = 'flex';
+            carregarMarcasSelect();
+        };
+        
+        document.getElementById('fecharModal').onclick = () => {
+            document.getElementById('modalProduto').style.display = 'none';
+        };
+        
+        document.getElementById('produtoForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const formData = new FormData();
+            const id = document.getElementById('produtoId').value;
+            
+            formData.append('nome', document.getElementById('nome').value);
+            formData.append('descricao', document.getElementById('descricao').value);
+            formData.append('preco', document.getElementById('preco').value);
+            formData.append('categoria', document.getElementById('categoria').value);
+            formData.append('categoria_sexo', document.getElementById('categoriaSexo').value);
+            formData.append('formato', document.getElementById('formato').value);
+            formData.append('marca_id', document.getElementById('marcaId').value);
+            formData.append('destaque', document.getElementById('destaque').checked ? 1 : 0);
+            
+            const file = document.getElementById('imagem').files[0];
+            if (file) formData.append('imagem', file);
+            
+            const url = id ? `/api/admin/produtos/${id}` : '/api/admin/produtos';
+            const method = id ? 'PUT' : 'POST';
+            
+            const btnSalvar = document.querySelector('.btn-salvar');
+            const originalText = btnSalvar.innerHTML;
+            btnSalvar.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Salvando...';
+            btnSalvar.disabled = true;
+            
+            try {
+                const response = await fetch(url, { method, body: formData });
+                if (response.ok) {
+                    alert(id ? '✅ Produto atualizado com sucesso!' : '✅ Produto cadastrado com sucesso!');
+                    document.getElementById('modalProduto').style.display = 'none';
+                    carregarProdutos();
+                } else {
+                    const error = await response.json();
+                    alert('❌ Erro: ' + (error.error || 'Tente novamente'));
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+                alert('❌ Erro de conexão com o servidor');
+            } finally {
+                btnSalvar.innerHTML = originalText;
+                btnSalvar.disabled = false;
+            }
+        };
+        
+        document.getElementById('logoutBtn')?.addEventListener('click', async (e) => {
+            e.preventDefault();
+            try {
+                await fetch('/api/admin/logout', { method: 'POST' });
+            } catch (error) {}
+            window.location.href = '/admin/login.html';
+        });
+        
+        verificarLogin();
+        carregarProdutos();
+    </script>
+</body>
+</html>
